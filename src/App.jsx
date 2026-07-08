@@ -19,7 +19,6 @@ import {
   Baby,
   Menu,
   X,
-  Upload,
 } from 'lucide-react'
 import logoIconWhite from './assets/logo/logo-icon-white.png'
 import logoFullWhite from './assets/logo/logo-full-white.png'
@@ -710,19 +709,13 @@ function Field({ label, type = 'text', required, value, onChange }) {
 function ContactForm() {
   const { t } = useLanguage()
   const [form, setForm] = useState({ name: '', email: '', phone: '', zip: '', message: '' })
-  const [files, setFiles] = useState([])
   const [status, setStatus] = useState('idle')
-  const dropRef = useRef(null)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!form.name || !form.email || !form.message) return
     setStatus('sending')
     setTimeout(() => setStatus('sent'), 1200)
-  }
-
-  const handleFiles = (newFiles) => {
-    setFiles((prev) => [...prev, ...Array.from(newFiles)].slice(0, 5))
   }
 
   return (
@@ -809,40 +802,6 @@ function ContactForm() {
                       placeholder={t('contact.form.messagePlaceholder')}
                       className="w-full bg-background border border-divider rounded-2xl px-4 py-3.5 text-ink placeholder-muted/60 focus:border-primary focus:ring-4 focus:ring-primary/15 outline-none transition resize-none font-body"
                     />
-                  </div>
-
-                  <div
-                    ref={dropRef}
-                    onDragOver={(e) => {
-                      e.preventDefault()
-                      dropRef.current?.classList.add('!border-primary', '!bg-primary/5')
-                    }}
-                    onDragLeave={() => {
-                      dropRef.current?.classList.remove('!border-primary', '!bg-primary/5')
-                    }}
-                    onDrop={(e) => {
-                      e.preventDefault()
-                      dropRef.current?.classList.remove('!border-primary', '!bg-primary/5')
-                      handleFiles(e.dataTransfer.files)
-                    }}
-                    className="mt-5 border-2 border-dashed border-divider rounded-3xl p-6 text-center hover:border-primary/50 transition-colors cursor-pointer"
-                  >
-                    <input type="file" multiple id="file-up" className="hidden" onChange={(e) => handleFiles(e.target.files)} accept="image/*" />
-                    <label htmlFor="file-up" className="cursor-pointer block">
-                      <Upload className="h-6 w-6 mx-auto text-primary-dark mb-2" />
-                      <p className="font-display font-semibold text-ink text-sm">{t('contact.form.uploadTitle')}</p>
-                      <p className="text-xs text-muted mt-1">{t('contact.form.uploadHint')}</p>
-                      {files.length > 0 && (
-                        <div className="mt-4 flex flex-wrap gap-2 justify-center">
-                          {files.map((f, i) => (
-                            <span key={i} className="inline-flex items-center gap-1.5 bg-primary/10 text-primary-dark text-xs px-3 py-1.5 rounded-full font-mono">
-                              <CheckCircle2 className="h-3 w-3" />
-                              {f.name.length > 22 ? f.name.slice(0, 22) + '…' : f.name}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </label>
                   </div>
 
                   <div className="mt-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
