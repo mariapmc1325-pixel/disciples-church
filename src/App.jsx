@@ -31,7 +31,6 @@ gsap.registerPlugin(ScrollTrigger)
    Constants / Content
 ---------------------------------------------------------------- */
 const NAV_LINKS = [
-  { label: 'Inicio', href: '#inicio' },
   { label: 'Ministerios', href: '#ministerios' },
   { label: 'Visión', href: '#vision' },
   { label: 'Un Domingo', href: '#domingo' },
