@@ -106,7 +106,7 @@ function Navbar() {
               <span className="absolute inset-0 rounded-full ring-2 ring-primary/30 group-hover:ring-primary/50 transition" />
             </span>
             <span
-              className={`font-display font-bold tracking-tight text-lg ${
+              className={`font-display uppercase font-bold tracking-tight text-lg ${
                 scrolled ? 'text-ink' : 'text-white'
               } transition-colors`}
             >
@@ -165,7 +165,7 @@ function Navbar() {
               <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-primary">
                 <img src={logoIconWhite} alt="" className="h-5 w-4 object-contain" />
               </span>
-              <span className="font-display font-bold text-xl text-ink">Disciples Church</span>
+              <span className="font-display uppercase font-bold text-xl text-ink">Disciples Church</span>
             </span>
             <button onClick={() => setOpen(false)} className="p-2 rounded-full bg-divider/40">
               <X className="h-5 w-5" />
@@ -180,7 +180,7 @@ function Navbar() {
                   scrollToSection(e, link.href.slice(1))
                   setOpen(false)
                 }}
-                className="font-display text-3xl font-semibold text-ink py-3 border-b border-divider"
+                className="font-display uppercase text-3xl font-semibold text-ink py-3 border-b border-divider"
               >
                 {link.label}
               </a>
@@ -257,12 +257,12 @@ function Hero() {
             Fundada en 2020 · Greenville, SC
           </p>
 
-          <h1 className="font-display font-extrabold text-white leading-[0.95] tracking-tight">
+          <h1 className="font-display uppercase font-extrabold text-white leading-[0.95] tracking-tight">
             <span className="hero-line-1 block text-4xl sm:text-5xl md:text-6xl">
               Soy un discípulo.
             </span>
             <span
-              className="hero-line-2 block font-serif italic font-medium text-primary-light text-5xl sm:text-6xl md:text-7xl lg:text-8xl mt-2"
+              className="hero-line-2 block normal-case font-serif italic font-medium text-primary-light text-5xl sm:text-6xl md:text-7xl lg:text-8xl mt-2"
               style={{ lineHeight: '0.92' }}
             >
               Y hago discípulos.
@@ -411,9 +411,9 @@ function Pillars() {
             <span className="inline-block font-mono text-xs uppercase tracking-[0.3em] text-primary-dark mb-5">
               ╱ Nuestra visión
             </span>
-            <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.05] tracking-tight">
+            <h2 className="font-display uppercase font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.05] tracking-tight">
               Una familia de discípulos.
-              <span className="block font-serif italic font-medium text-primary-dark">Para todas las naciones.</span>
+              <span className="block normal-case font-serif italic font-medium text-primary-dark">Para todas las naciones.</span>
             </h2>
           </div>
           <p className="text-muted text-lg leading-relaxed max-w-md lg:text-right">
@@ -537,9 +537,9 @@ function Protocol() {
     <section id="domingo" ref={containerRef} className="relative px-4 sm:px-6 py-20">
       <div className="max-w-7xl mx-auto mb-16 px-2 sm:px-10">
         <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">╱ Un domingo en Disciples</span>
-        <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink mt-4 leading-[1.05] tracking-tight max-w-3xl">
+        <h2 className="font-display uppercase font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink mt-4 leading-[1.05] tracking-tight max-w-3xl">
           Tres momentos.
-          <span className="block font-serif italic font-medium text-primary-dark">Una misma familia.</span>
+          <span className="block normal-case font-serif italic font-medium text-primary-dark">Una misma familia.</span>
         </h2>
       </div>
 
@@ -562,7 +562,7 @@ function Protocol() {
                   <span className="font-display font-extrabold text-[7rem] sm:text-[10rem] leading-none text-primary/15 -mb-4 block">
                     {step.num}
                   </span>
-                  <h3 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.02] tracking-tight">
+                  <h3 className="font-display uppercase font-bold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.02] tracking-tight">
                     {step.title}
                   </h3>
                   <p className="font-serif italic text-primary-dark text-2xl sm:text-3xl mt-3">{step.tagline}</p>
@@ -619,9 +619,9 @@ function ServicesGrid() {
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-14">
           <div>
             <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary">╱ Todos nuestros ministerios</span>
-            <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl mt-4 leading-[1.05] tracking-tight">
+            <h2 className="font-display uppercase font-extrabold text-4xl sm:text-5xl md:text-6xl mt-4 leading-[1.05] tracking-tight">
               Un mismo cuerpo,
-              <span className="block font-serif italic font-medium text-primary">muchos ministerios.</span>
+              <span className="block normal-case font-serif italic font-medium text-primary">muchos ministerios.</span>
             </h2>
           </div>
           <p className="text-white/60 max-w-md text-base leading-relaxed">
@@ -642,7 +642,7 @@ function ServicesGrid() {
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
-                <h3 className="font-display font-bold text-xl sm:text-2xl mb-3">{svc.title}</h3>
+                <h3 className="font-display uppercase font-bold text-xl sm:text-2xl mb-3">{svc.title}</h3>
                 <p className="text-white/55 text-sm leading-relaxed">{svc.text}</p>
               </div>
             )
@@ -699,7 +699,7 @@ function TrustSignals() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">╱ Por qué confiar en nosotros</span>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl text-ink mt-3 tracking-tight">
+          <h2 className="font-display uppercase font-extrabold text-3xl sm:text-4xl md:text-5xl text-ink mt-3 tracking-tight">
             Más que un servicio dominical.
           </h2>
         </div>
@@ -714,7 +714,7 @@ function TrustSignals() {
               }`}
             >
               <Icon className="h-6 w-6 text-primary mb-3" strokeWidth={1.8} />
-              <h3 className="font-display font-bold text-lg text-ink mb-1.5">{title}</h3>
+              <h3 className="font-display uppercase font-bold text-lg text-ink mb-1.5">{title}</h3>
               <p className="text-muted text-sm leading-relaxed">{text}</p>
             </div>
           ))}
@@ -778,9 +778,9 @@ function ContactForm() {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
           <div className="lg:col-span-5">
             <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">╱ Contacto</span>
-            <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink mt-4 leading-[1.05] tracking-tight">
+            <h2 className="font-display uppercase font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink mt-4 leading-[1.05] tracking-tight">
               ¿Cómo podemos
-              <span className="block font-serif italic font-medium text-primary-dark">ayudarte?</span>
+              <span className="block normal-case font-serif italic font-medium text-primary-dark">ayudarte?</span>
             </h2>
             <p className="text-muted text-lg mt-6 leading-relaxed max-w-md">
               Escríbenos y con gusto te contactaremos para resolver tus dudas o ayudarte a dar tu próximo paso.
@@ -906,7 +906,7 @@ function ContactForm() {
                   <div className="h-16 w-16 mx-auto rounded-full bg-primary/15 flex items-center justify-center mb-6">
                     <CheckCircle2 className="h-8 w-8 text-primary-dark" />
                   </div>
-                  <h3 className="font-display font-bold text-2xl text-ink mb-3">¡Gracias por tu mensaje!</h3>
+                  <h3 className="font-display uppercase font-bold text-2xl text-ink mb-3">¡Gracias por tu mensaje!</h3>
                   <p className="text-muted max-w-md mx-auto">Nos pondremos en contacto contigo lo antes posible.</p>
                 </div>
               )}
@@ -929,9 +929,9 @@ function Footer() {
 
       <div className="relative px-6 sm:px-10 lg:px-16 pt-20 pb-10 max-w-7xl mx-auto">
         <div className="border-b border-white/10 pb-12 mb-12">
-          <h2 className="font-display font-extrabold text-5xl sm:text-7xl md:text-8xl leading-[0.92] tracking-tight">
+          <h2 className="font-display uppercase font-extrabold text-5xl sm:text-7xl md:text-8xl leading-[0.92] tracking-tight">
             Soy un discípulo.
-            <span className="font-serif italic font-medium text-primary block">Y hago discípulos.</span>
+            <span className="font-serif italic normal-case font-medium text-primary block">Y hago discípulos.</span>
           </h2>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mt-8 gap-6">
             <p className="text-white/50 max-w-md">

@@ -4,22 +4,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#5F7A52',
-        'primary-dark': '#47603D',
-        'primary-light': '#82A171',
-        accent: '#C1694A',
-        'accent-dark': '#A24E34',
-        background: '#FBF9F4',
+        // Piedra Quieta brand palette
+        graphite: '#33312C',
+        sage: '#7C8567',
+        clay: '#C98358',
+        cream: '#FBF8F2',
+        sand: '#F2ECDF',
+        // semantic tokens mapped onto the brand palette
+        primary: '#C98358',
+        'primary-dark': '#A56B48',
+        'primary-light': '#DAAB8D',
+        accent: '#7C8567',
+        'accent-dark': '#666D54',
+        background: '#FBF8F2',
         surface: '#FFFFFF',
-        ink: '#211D18',
-        muted: '#6F675C',
-        divider: '#E3DACB',
-        deep: '#1B1912',
+        ink: '#33312C',
+        muted: '#6C6962',
+        divider: '#E7E1D4',
+        deep: '#33312C',
       },
       fontFamily: {
-        display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        serif: ['"Cormorant Garamond"', 'serif'],
-        body: ['"Inter"', 'system-ui', 'sans-serif'],
+        display: ['"Big Shoulders Display"', 'system-ui', 'sans-serif'],
+        serif: ['"Lora"', 'serif'],
+        body: ['"Karla"', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       borderRadius: {
