@@ -38,6 +38,15 @@ const NAV_LINKS = [
   { label: 'Contacto', href: '#contacto' },
 ]
 
+const MAP_URL = 'https://www.google.com/maps/search/?api=1&query=724+Garlington+Rd,+Greenville,+SC+29615'
+
+// HashRouter owns the URL hash for routing, so plain href="#id" anchors would
+// be treated as a (non-existent) route change instead of a same-page scroll.
+const scrollToSection = (e, id) => {
+  e.preventDefault()
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+}
+
 const SERVICES_FULL = [
   {
     icon: Home,
@@ -92,7 +101,7 @@ function Navbar() {
         } rounded-full px-4 sm:px-6 py-2.5 w-[calc(100%-2rem)] max-w-5xl`}
       >
         <div className="flex items-center justify-between gap-6">
-          <a href="#inicio" className="flex items-center gap-2 group">
+          <a href="#inicio" onClick={(e) => scrollToSection(e, 'inicio')} className="flex items-center gap-2 group">
             <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-primary">
               <img src={logoIconWhite} alt="" className="h-5 w-4 object-contain" />
               <span className="absolute inset-0 rounded-full ring-2 ring-primary/30 group-hover:ring-primary/50 transition" />
@@ -111,6 +120,7 @@ function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => scrollToSection(e, link.href.slice(1))}
                 className={`text-sm font-medium tracking-tight lift-on-hover ${
                   scrolled ? 'text-ink/70 hover:text-primary' : 'text-white/90 hover:text-white'
                 } transition-colors`}
@@ -122,6 +132,7 @@ function Navbar() {
 
           <a
             href="#contacto"
+            onClick={(e) => scrollToSection(e, 'contacto')}
             className="hidden lg:inline-flex magnetic-btn items-center gap-1.5 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg shadow-primary/30"
           >
             Soy Nuevo
@@ -166,7 +177,10 @@ function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  scrollToSection(e, link.href.slice(1))
+                  setOpen(false)
+                }}
                 className="font-display text-3xl font-semibold text-ink py-3 border-b border-divider"
               >
                 {link.label}
@@ -175,7 +189,10 @@ function Navbar() {
           </div>
           <a
             href="#contacto"
-            onClick={() => setOpen(false)}
+            onClick={(e) => {
+              scrollToSection(e, 'contacto')
+              setOpen(false)
+            }}
             className="mt-8 magnetic-btn flex items-center justify-center gap-2 bg-primary text-white px-6 py-4 rounded-full font-semibold w-full"
           >
             Soy Nuevo
@@ -261,13 +278,16 @@ function Hero() {
           <div className="hero-cta mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="#contacto"
+              onClick={(e) => scrollToSection(e, 'contacto')}
               className="magnetic-btn group inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold px-7 py-4 rounded-full shadow-2xl shadow-primary/40"
             >
               Soy Nuevo
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </a>
             <a
-              href="#domingo"
+              href={MAP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="lift-on-hover inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md text-white border border-white/20 font-medium px-7 py-4 rounded-full"
             >
               <MapPin className="h-4 w-4" />
@@ -702,7 +722,11 @@ function TrustSignals() {
         </div>
 
         <div className="text-center">
-          <a href="#contacto" className="magnetic-btn inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-3.5 rounded-full shadow-xl shadow-primary/30">
+          <a
+            href="#contacto"
+            onClick={(e) => scrollToSection(e, 'contacto')}
+            className="magnetic-btn inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-3.5 rounded-full shadow-xl shadow-primary/30"
+          >
             Contáctanos
             <ArrowRight className="h-4 w-4" />
           </a>
@@ -785,7 +809,7 @@ function ContactForm() {
               </a>
 
               <a
-                href="https://www.google.com/maps/search/?api=1&query=724+Garlington+Rd,+Greenville,+SC+29615"
+                href={MAP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="lift-on-hover flex items-center gap-4 group"
@@ -914,7 +938,11 @@ function Footer() {
             <p className="text-white/50 max-w-md">
               Disciples Church — una familia multicultural en el Upstate de Carolina del Sur.
             </p>
-            <a href="#contacto" className="magnetic-btn inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-3.5 rounded-full self-start sm:self-auto">
+            <a
+              href="#contacto"
+              onClick={(e) => scrollToSection(e, 'contacto')}
+              className="magnetic-btn inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-3.5 rounded-full self-start sm:self-auto"
+            >
               Contáctanos
               <ArrowRight className="h-4 w-4" />
             </a>
@@ -937,7 +965,11 @@ function Footer() {
             <ul className="space-y-2.5">
               {SERVICES_FULL.slice(0, 4).map((s, i) => (
                 <li key={i}>
-                  <a href="#ministerios" className="text-white/65 hover:text-primary transition text-sm">
+                  <a
+                    href="#ministerios"
+                    onClick={(e) => scrollToSection(e, 'ministerios')}
+                    className="text-white/65 hover:text-primary transition text-sm"
+                  >
                     {s.title}
                   </a>
                 </li>
@@ -948,9 +980,9 @@ function Footer() {
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary mb-4">Iglesia</p>
             <ul className="space-y-2.5">
-              <li><a href="#vision" className="text-white/65 hover:text-primary transition text-sm">Nuestra Visión</a></li>
-              <li><a href="#domingo" className="text-white/65 hover:text-primary transition text-sm">Un Domingo</a></li>
-              <li><a href="#contacto" className="text-white/65 hover:text-primary transition text-sm">Contacto</a></li>
+              <li><a href="#vision" onClick={(e) => scrollToSection(e, 'vision')} className="text-white/65 hover:text-primary transition text-sm">Nuestra Visión</a></li>
+              <li><a href="#domingo" onClick={(e) => scrollToSection(e, 'domingo')} className="text-white/65 hover:text-primary transition text-sm">Un Domingo</a></li>
+              <li><a href="#contacto" onClick={(e) => scrollToSection(e, 'contacto')} className="text-white/65 hover:text-primary transition text-sm">Contacto</a></li>
             </ul>
           </div>
 
