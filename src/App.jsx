@@ -12,7 +12,6 @@ import {
   ShieldCheck,
   Languages,
   Users,
-  Church,
   Home,
   Flame,
   Droplets,
@@ -22,6 +21,9 @@ import {
   X,
   Upload,
 } from 'lucide-react'
+import logoIconWhite from './assets/logo/logo-icon-white.png'
+import logoFullWhite from './assets/logo/logo-full-white.png'
+import logoWordmarkWhite from './assets/logo/logo-wordmark-white.png'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -92,7 +94,7 @@ function Navbar() {
         <div className="flex items-center justify-between gap-6">
           <a href="#inicio" className="flex items-center gap-2 group">
             <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-primary">
-              <Church className="h-5 w-5 text-white" strokeWidth={2.4} />
+              <img src={logoIconWhite} alt="" className="h-5 w-4 object-contain" />
               <span className="absolute inset-0 rounded-full ring-2 ring-primary/30 group-hover:ring-primary/50 transition" />
             </span>
             <span
@@ -149,7 +151,12 @@ function Navbar() {
           }`}
         >
           <div className="flex items-center justify-between mb-10">
-            <span className="font-display font-bold text-xl text-ink">Disciples Church</span>
+            <span className="flex items-center gap-2">
+              <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-primary">
+                <img src={logoIconWhite} alt="" className="h-5 w-4 object-contain" />
+              </span>
+              <span className="font-display font-bold text-xl text-ink">Disciples Church</span>
+            </span>
             <button onClick={() => setOpen(false)} className="p-2 rounded-full bg-divider/40">
               <X className="h-5 w-5" />
             </button>
@@ -225,6 +232,11 @@ function Hero() {
 
       <div className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center text-center">
         <div className="px-6 sm:px-10 lg:px-16 max-w-4xl">
+          <img
+            src={logoWordmarkWhite}
+            alt="Disciples"
+            className="hero-meta h-6 sm:h-7 mx-auto mb-6 object-contain"
+          />
           <p className="hero-meta font-mono text-xs uppercase tracking-[0.25em] text-white/70 mb-6">
             Fundada en 2020 · Greenville, SC
           </p>
@@ -911,12 +923,7 @@ function Footer() {
 
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="h-9 w-9 rounded-full bg-primary flex items-center justify-center">
-                <Church className="h-5 w-5 text-white" strokeWidth={2.4} />
-              </span>
-              <span className="font-display font-bold text-lg">Disciples Church</span>
-            </div>
+            <img src={logoFullWhite} alt="Disciples Church" className="h-14 sm:h-16 mb-5 object-contain" />
             <p className="text-white/50 text-sm leading-relaxed max-w-xs">
               Una iglesia comprometida a seguir a Jesús, formar discípulos y alcanzar a las naciones.
             </p>
