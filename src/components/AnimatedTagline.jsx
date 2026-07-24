@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { HERO_TAGLINE_PHRASES } from '../i18n/heroTaglines'
 import { useLanguage } from '../i18n/LanguageContext'
 
-const TYPE_MS = 1300
-const ERASE_MS = 1100
-const HOLD_MS = 2800
+const TYPE_MS = 1900
+const ERASE_MS = 1600
+const HOLD_MS = 3600
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(
@@ -19,9 +19,8 @@ function usePrefersReducedMotion() {
   return reduced
 }
 
-const LINE1_CLASS = 'hero-line-1 block text-4xl sm:text-5xl md:text-6xl'
-const LINE2_CLASS =
-  'hero-line-2 block normal-case font-serif italic font-medium text-primary-light text-5xl sm:text-6xl md:text-7xl lg:text-8xl mt-2'
+const LINE1_CLASS = 'hero-line-1 block normal-case font-serif italic font-medium text-accent text-4xl sm:text-5xl md:text-6xl'
+const LINE2_CLASS = 'hero-line-2 block text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl mt-2'
 
 /* ----------------------------------------------------------------
    Ambient hero tagline: types the Spanish phrase, erases it, types

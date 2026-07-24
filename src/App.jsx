@@ -12,11 +12,6 @@ import {
   ShieldCheck,
   Languages,
   Users,
-  Home,
-  Flame,
-  Droplets,
-  GraduationCap,
-  Baby,
   Menu,
   X,
 } from 'lucide-react'
@@ -30,6 +25,7 @@ import { useLanguage } from './i18n/LanguageContext'
 import { HERO_TAGLINE_PHRASES } from './i18n/heroTaglines'
 import LanguageToggle from './components/LanguageToggle'
 import AnimatedTagline from './components/AnimatedTagline'
+import { YoutubeIcon, FacebookIcon, InstagramIcon } from './components/SocialIcons'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -43,6 +39,12 @@ const NAV_LINKS = [
   { id: 'contacto', key: 'nav.contact' },
 ]
 
+// Open in a new tab rather than scrolling to a section of the page.
+const EXTERNAL_NAV_LINKS = [
+  { key: 'nav.give', href: '#/dar' },
+  { key: 'nav.live', href: 'https://www.youtube.com/@DisciplesChurch_GVL' },
+]
+
 const MAP_URL = 'https://www.google.com/maps/search/?api=1&query=724+Garlington+Rd,+Greenville,+SC+29615'
 
 // HashRouter owns the URL hash for routing, so plain href="#id" anchors would
@@ -52,13 +54,18 @@ const scrollToSection = (e, id) => {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
 
-const SERVICES_META = [
-  { icon: Home, key: 'familyGroups' },
-  { icon: Flame, key: 'encounter' },
-  { icon: Droplets, key: 'baptisms' },
-  { icon: GraduationCap, key: 'leadershipSchool' },
-  { icon: Baby, key: 'children' },
-  { icon: Languages, key: 'translation' },
+const DISCIPLESHIP_PATH_META = [
+  { key: 'reach' },
+  { key: 'affirm' },
+  { key: 'equip' },
+  { key: 'train' },
+  { key: 'send' },
+]
+
+const SOCIAL_LINKS = [
+  { key: 'youtube', Icon: YoutubeIcon, href: 'https://www.youtube.com/@DisciplesChurch_GVL' },
+  { key: 'facebook', Icon: FacebookIcon, href: 'https://www.facebook.com/discipleschurchgvl' },
+  { key: 'instagram', Icon: InstagramIcon, href: 'https://www.instagram.com/discipleschurchgvl/' },
 ]
 
 /* ----------------------------------------------------------------
@@ -83,17 +90,10 @@ function Navbar() {
         } rounded-full px-4 sm:px-6 py-2.5 w-[calc(100%-2rem)] max-w-5xl`}
       >
         <div className="flex items-center justify-between gap-6">
-          <a href="#inicio" onClick={(e) => scrollToSection(e, 'inicio')} className="flex items-center gap-2 group">
+          <a href="#inicio" onClick={(e) => scrollToSection(e, 'inicio')} className="flex items-center gap-2 group" aria-label={t('common.brand')}>
             <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-primary">
               <img src={logoIconWhite} alt="" className="h-5 w-4 object-contain" />
               <span className="absolute inset-0 rounded-full ring-2 ring-primary/30 group-hover:ring-primary/50 transition" />
-            </span>
-            <span
-              className={`font-display uppercase font-bold tracking-tight text-lg ${
-                scrolled ? 'text-ink' : 'text-white'
-              } transition-colors`}
-            >
-              {t('common.brand')}
             </span>
           </a>
 
@@ -103,6 +103,19 @@ function Navbar() {
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => scrollToSection(e, link.id)}
+                className={`text-sm font-medium tracking-tight lift-on-hover ${
+                  scrolled ? 'text-ink/70 hover:text-primary' : 'text-white/90 hover:text-white'
+                } transition-colors`}
+              >
+                {t(link.key)}
+              </a>
+            ))}
+            {EXTERNAL_NAV_LINKS.map((link) => (
+              <a
+                key={link.key}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`text-sm font-medium tracking-tight lift-on-hover ${
                   scrolled ? 'text-ink/70 hover:text-primary' : 'text-white/90 hover:text-white'
                 } transition-colors`}
@@ -150,11 +163,10 @@ function Navbar() {
           }`}
         >
           <div className="flex items-center justify-between mb-10">
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2" aria-label={t('common.brand')}>
               <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-primary">
                 <img src={logoIconWhite} alt="" className="h-5 w-4 object-contain" />
               </span>
-              <span className="font-display uppercase font-bold text-xl text-ink">{t('common.brand')}</span>
             </span>
             <div className="flex items-center gap-4">
               <LanguageToggle />
@@ -172,6 +184,18 @@ function Navbar() {
                   scrollToSection(e, link.id)
                   setOpen(false)
                 }}
+                className="font-display uppercase text-3xl font-semibold text-ink py-3 border-b border-divider"
+              >
+                {t(link.key)}
+              </a>
+            ))}
+            {EXTERNAL_NAV_LINKS.map((link) => (
+              <a
+                key={link.key}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
                 className="font-display uppercase text-3xl font-semibold text-ink py-3 border-b border-divider"
               >
                 {t(link.key)}
@@ -246,9 +270,6 @@ function Hero() {
             alt="Disciples"
             className="hero-meta h-6 sm:h-7 mx-auto mb-6 object-contain"
           />
-          <p className="hero-meta font-mono text-xs uppercase tracking-[0.25em] text-white/70 mb-6">
-            {t('hero.founded')}
-          </p>
 
           <AnimatedTagline />
 
@@ -275,11 +296,6 @@ function Hero() {
               {t('hero.serviceTime')}
             </a>
           </div>
-        </div>
-
-        <div className="absolute bottom-8 right-6 sm:right-12 hidden md:flex flex-col items-center gap-2 text-white/50">
-          <span className="font-mono uppercase text-[10px] tracking-[0.3em]">{t('hero.scroll')}</span>
-          <div className="h-8 w-px bg-gradient-to-b from-white/50 to-transparent" />
         </div>
       </div>
     </section>
@@ -331,9 +347,9 @@ function CountUp({ target, duration = 1800 }) {
    Pillars
 ---------------------------------------------------------------- */
 const PILLARS_META = [
-  { n: '01', key: 'community', target: 20, suffix: '+' },
-  { n: '02', key: 'nations', target: 17, suffix: '' },
-  { n: '03', key: 'family', target: 400, suffix: '+' },
+  { key: 'community', target: 30, suffix: '+' },
+  { key: 'nations', target: 17, suffix: '' },
+  { key: 'family', target: 300, suffix: '+' },
 ]
 
 function Pillars() {
@@ -365,20 +381,14 @@ function Pillars() {
 
       <div className="relative max-w-7xl mx-auto">
         <div
-          className={`flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 sm:mb-24 transition-all duration-1000 ease-out ${
+          className={`mb-16 sm:mb-24 transition-all duration-1000 ease-out ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <div className="max-w-2xl">
-            <span className="inline-block font-mono text-xs uppercase tracking-[0.3em] text-primary-dark mb-5">
-              {t('pillars.eyebrow')}
-            </span>
-            <h2 className="font-display uppercase font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.05] tracking-tight">
-              {t('pillars.heading1')}
-              <span className="block normal-case font-serif italic font-medium text-primary-dark">{t('pillars.heading2')}</span>
-            </h2>
-          </div>
-          <p className="text-muted text-lg leading-relaxed max-w-md lg:text-right">{t('pillars.intro')}</p>
+          <h2 className="font-display uppercase font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.05] tracking-tight">
+            {t('pillars.heading')}
+          </h2>
+          <p className="font-serif italic text-accent text-2xl sm:text-3xl md:text-4xl mt-4">{t('pillars.subtitle')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-divider rounded-5xl overflow-hidden border border-divider shadow-xl shadow-primary/5">
@@ -390,10 +400,7 @@ function Pillars() {
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
             >
-              <div className="flex items-center justify-between mb-10">
-                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
-                  {p.n} / {t(`pillars.items.${p.key}.title`)}
-                </span>
+              <div className="flex items-center justify-end mb-10">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary/40 group-hover:bg-primary group-hover:scale-150 transition-all duration-500" />
               </div>
 
@@ -402,7 +409,7 @@ function Pillars() {
                   <CountUp target={p.target} duration={1800 + i * 200} />
                 </span>
                 {p.suffix && (
-                  <span className="font-serif italic font-medium text-4xl sm:text-5xl md:text-6xl text-primary-dark mb-3 sm:mb-4">
+                  <span className="font-serif italic font-medium text-4xl sm:text-5xl md:text-6xl text-accent mb-3 sm:mb-4">
                     {p.suffix}
                   </span>
                 )}
@@ -445,12 +452,18 @@ const PROTOCOL_META = [
     image: protocolWorshipPhoto,
   },
   {
+    // TODO: swap in a real Children's Ministry photo — reusing protocol-group.jpg as a placeholder
     num: '02',
+    key: 'children',
+    image: protocolGroupPhoto,
+  },
+  {
+    num: '03',
     key: 'table',
     image: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&q=80',
   },
   {
-    num: '03',
+    num: '04',
     key: 'group',
     image: protocolGroupPhoto,
   },
@@ -486,11 +499,10 @@ function Protocol() {
   return (
     <section id="domingo" ref={containerRef} className="relative px-4 sm:px-6 py-20">
       <div className="max-w-7xl mx-auto mb-16 px-2 sm:px-10">
-        <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">{t('protocol.eyebrow')}</span>
-        <h2 className="font-display uppercase font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink mt-4 leading-[1.05] tracking-tight max-w-3xl">
-          {t('protocol.heading1')}
-          <span className="block normal-case font-serif italic font-medium text-primary-dark">{t('protocol.heading2')}</span>
+        <h2 className="font-display uppercase font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.05] tracking-tight">
+          {t('protocol.heading')}
         </h2>
+        <p className="font-serif italic text-accent text-2xl sm:text-3xl md:text-4xl mt-4">{t('protocol.subtitle')}</p>
       </div>
 
       <div className="space-y-8">
@@ -501,15 +513,6 @@ function Protocol() {
           >
             <div className="grid lg:grid-cols-5 gap-0 min-h-[60vh] lg:min-h-[70vh]">
               <div className="lg:col-span-3 p-8 sm:p-12 lg:p-16 flex flex-col justify-between">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs uppercase tracking-[0.25em] text-muted">
-                    {t(`protocol.steps.${step.key}.meta`)}
-                  </span>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-primary-dark bg-primary/10 px-2.5 py-1 rounded-full">
-                    {t('protocol.brandTag')}
-                  </span>
-                </div>
-
                 <div className="my-12">
                   <span className="font-display font-extrabold text-[7rem] sm:text-[10rem] leading-none text-primary/15 -mb-4 block">
                     {step.num}
@@ -517,7 +520,7 @@ function Protocol() {
                   <h3 className="font-display uppercase font-bold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.02] tracking-tight">
                     {t(`protocol.steps.${step.key}.title`)}
                   </h3>
-                  <p className="font-serif italic text-primary-dark text-2xl sm:text-3xl mt-3">
+                  <p className="font-serif italic text-accent text-2xl sm:text-3xl mt-3">
                     {t(`protocol.steps.${step.key}.tagline`)}
                   </p>
                 </div>
@@ -535,15 +538,6 @@ function Protocol() {
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-deep/60 via-transparent to-deep/15" />
-                <div className="absolute top-5 left-5 flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full pl-3 pr-4 py-1.5 shadow-lg">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-ink">
-                    {t('protocol.stepLabel')} {step.num}
-                  </span>
-                </div>
-                <div className="absolute bottom-4 right-4 font-mono text-[10px] uppercase tracking-widest text-white/70">
-                  {step.num} / {t('common.brand')}
-                </div>
               </div>
             </div>
           </article>
@@ -554,20 +548,23 @@ function Protocol() {
 }
 
 /* ----------------------------------------------------------------
-   All Ministries Grid (6 dark tiles)
+   Discipleship Path — Alcanzar / Afirmar / Equipar / Instruir / Enviar
+   (hover to expand on desktop, tap to expand on touch/keyboard)
 ---------------------------------------------------------------- */
-function ServicesGrid() {
+function MinistryPath() {
   const { t } = useLanguage()
   const ref = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(null)
+
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.svc-tile', {
+      gsap.from('.path-step', {
         scrollTrigger: { trigger: ref.current, start: 'top 90%', once: true },
         y: 30,
         opacity: 0,
         duration: 0.7,
         ease: 'power3.out',
-        stagger: 0.06,
+        stagger: 0.08,
       })
     }, ref)
     return () => ctx.revert()
@@ -580,32 +577,57 @@ function ServicesGrid() {
       <div className="absolute bottom-0 -left-20 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-14">
-          <div>
-            <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary">{t('services.eyebrow')}</span>
-            <h2 className="font-display uppercase font-extrabold text-4xl sm:text-5xl md:text-6xl mt-4 leading-[1.05] tracking-tight">
-              {t('services.heading1')}
-              <span className="block normal-case font-serif italic font-medium text-primary">{t('services.heading2')}</span>
-            </h2>
-          </div>
-          <p className="text-white/60 max-w-md text-base leading-relaxed">{t('services.intro')}</p>
+        <div className="mb-14">
+          <h2 className="font-display uppercase font-extrabold text-4xl sm:text-5xl md:text-6xl leading-[1.05] tracking-tight">
+            {t('path.heading')}
+          </h2>
+          <p className="font-serif italic text-accent text-2xl sm:text-3xl md:text-4xl mt-4">{t('path.subtitle')}</p>
+          <p className="text-white/60 italic text-base sm:text-lg leading-relaxed mt-6">{t('path.intro')}</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 rounded-4xl overflow-hidden">
-          {SERVICES_META.map((svc, i) => {
-            const Icon = svc.icon
+        <div className="flex flex-col lg:flex-row gap-3 lg:gap-2 lg:h-[32rem]">
+          {DISCIPLESHIP_PATH_META.map((step, i) => {
+            const isActive = activeIndex === i
+            const toggle = () => setActiveIndex((cur) => (cur === i ? null : i))
             return (
-              <div key={svc.key} className="svc-tile group bg-deep p-7 sm:p-9 hover:bg-white/[0.02] transition-colors duration-500 relative">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="h-12 w-12 rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-500">
-                    <Icon className="h-5 w-5 text-primary group-hover:text-white" strokeWidth={2} />
-                  </div>
-                  <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest">
-                    {String(i + 1).padStart(2, '0')}
+              <div
+                key={step.key}
+                role="button"
+                tabIndex={0}
+                aria-expanded={isActive}
+                onClick={toggle}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    toggle()
+                  }
+                }}
+                className={`path-step group relative bg-white/5 border border-white/10 rounded-7xl cursor-pointer outline-none transition-[flex-grow,flex-basis,min-height] duration-500 ease-out lg:flex lg:flex-row lg:items-center lg:min-h-0 lg:flex-1 lg:hover:flex-[2.4] ${
+                  isActive ? 'min-h-[14rem] lg:flex-[2.4]' : 'min-h-[6rem]'
+                }`}
+              >
+                <div className="absolute inset-0 flex items-center justify-center px-6 py-6 transition-opacity duration-300 lg:static lg:px-6 lg:py-10 lg:shrink-0">
+                  <span
+                    className={`font-display uppercase font-extrabold tracking-tight whitespace-nowrap select-none transition-all duration-500 text-3xl sm:text-4xl lg:text-4xl lg:[writing-mode:vertical-rl] lg:rotate-180 lg:opacity-100 lg:group-hover:text-2xl lg:group-hover:text-primary ${
+                      isActive ? 'opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto lg:text-2xl text-primary' : 'opacity-100 text-white/70'
+                    }`}
+                  >
+                    {t(`path.steps.${step.key}.name`)}
                   </span>
                 </div>
-                <h3 className="font-display uppercase font-bold text-xl sm:text-2xl mb-3">{t(`services.items.${svc.key}.title`)}</h3>
-                <p className="text-white/55 text-sm leading-relaxed">{t(`services.items.${svc.key}.text`)}</p>
+
+                <div
+                  className={`absolute inset-0 flex flex-col justify-center px-8 transition-opacity duration-300 lg:static lg:inset-auto lg:flex-col lg:justify-center lg:overflow-hidden lg:px-0 lg:py-6 lg:opacity-100 lg:max-w-0 lg:transition-all lg:duration-500 lg:group-hover:max-w-xs lg:group-hover:opacity-100 lg:group-hover:pr-8 ${
+                    isActive
+                      ? 'opacity-100 pointer-events-auto lg:max-w-xs lg:pr-8'
+                      : 'opacity-0 pointer-events-none lg:pr-0'
+                  }`}
+                >
+                  <p className="font-display uppercase font-bold text-base sm:text-lg text-white mb-2 whitespace-nowrap">
+                    {t(`path.steps.${step.key}.label`)}
+                  </p>
+                  <p className="text-white/60 text-sm leading-relaxed">{t(`path.steps.${step.key}.text`)}</p>
+                </div>
               </div>
             )
           })}
@@ -646,11 +668,10 @@ function TrustSignals() {
   }, [])
 
   return (
-    <section ref={ref} className="relative py-14 sm:py-20 px-6">
+    <section id="distingue" ref={ref} className="relative py-14 sm:py-20 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">{t('trust.eyebrow')}</span>
-          <h2 className="font-display uppercase font-extrabold text-3xl sm:text-4xl md:text-5xl text-ink mt-3 tracking-tight">
+          <h2 className="font-display uppercase font-extrabold text-3xl sm:text-4xl md:text-5xl text-ink tracking-tight">
             {t('trust.heading')}
           </h2>
         </div>
@@ -692,7 +713,7 @@ function TrustSignals() {
 function Field({ label, type = 'text', required, value, onChange }) {
   return (
     <div>
-      <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
+      <label className="font-body text-[11px] uppercase tracking-[0.2em] text-muted mb-2 block">
         {label} {required && '*'}
       </label>
       <input
@@ -723,31 +744,29 @@ function ContactForm() {
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
           <div className="lg:col-span-5">
-            <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">{t('contact.eyebrow')}</span>
-            <h2 className="font-display uppercase font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink mt-4 leading-[1.05] tracking-tight">
-              {t('contact.heading1')}
-              <span className="block normal-case font-serif italic font-medium text-primary-dark">{t('contact.heading2')}</span>
+            <h2 className="font-display uppercase font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.05] tracking-tight">
+              {t('contact.heading')}
             </h2>
             <p className="text-muted text-lg mt-6 leading-relaxed max-w-md">{t('contact.intro')}</p>
 
             <div className="mt-10 space-y-4">
-              <a href="tel:+18645678516" className="lift-on-hover flex items-center gap-4 group">
+              <a href="tel:+18645674567" className="lift-on-hover flex items-center gap-4 group">
                 <span className="h-12 w-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary transition">
                   <Phone className="h-5 w-5 text-primary group-hover:text-white" />
                 </span>
                 <span>
                   <span className="block font-mono text-[10px] uppercase tracking-widest text-muted">{t('contact.call')}</span>
-                  <span className="font-display font-semibold text-ink text-lg">864-567-8516</span>
+                  <span className="font-display font-semibold text-ink text-lg">(864) 567-4567</span>
                 </span>
               </a>
 
-              <a href="mailto:pastorjaves@hotmail.es" className="lift-on-hover flex items-center gap-4 group">
+              <a href="mailto:nazareno.greenville@live.com" className="lift-on-hover flex items-center gap-4 group">
                 <span className="h-12 w-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary transition">
                   <Mail className="h-5 w-5 text-primary group-hover:text-white" />
                 </span>
                 <span>
                   <span className="block font-mono text-[10px] uppercase tracking-widest text-muted">{t('contact.email')}</span>
-                  <span className="font-display font-semibold text-ink text-lg">pastorjaves@hotmail.es</span>
+                  <span className="font-display font-semibold text-ink text-lg">nazareno.greenville@live.com</span>
                 </span>
               </a>
 
@@ -791,7 +810,7 @@ function ContactForm() {
                   </div>
 
                   <div className="mt-5">
-                    <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
+                    <label className="font-body text-[11px] uppercase tracking-[0.2em] text-muted mb-2 block">
                       {t('contact.form.message')} *
                     </label>
                     <textarea
@@ -849,7 +868,7 @@ function Footer() {
         <div className="border-b border-white/10 pb-12 mb-12">
           <h2 className="font-display uppercase font-extrabold text-5xl sm:text-7xl md:text-8xl leading-[0.92] tracking-tight">
             {tagline.line1}
-            <span className="font-serif italic normal-case font-medium text-primary block">{tagline.line2}</span>
+            <span className="font-serif italic normal-case font-medium text-accent block">{tagline.line2}</span>
           </h2>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mt-8 gap-6">
             <p className="text-white/50 max-w-md">{t('footer.tagline')}</p>
@@ -872,16 +891,18 @@ function Footer() {
           </div>
 
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary mb-4">{t('footer.columnMinistries')}</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary mb-4">{t('footer.columnSocials')}</p>
             <ul className="space-y-2.5">
-              {SERVICES_META.slice(0, 4).map((s) => (
-                <li key={s.key}>
+              {SOCIAL_LINKS.map(({ key, Icon, href }) => (
+                <li key={key}>
                   <a
-                    href="#ministerios"
-                    onClick={(e) => scrollToSection(e, 'ministerios')}
-                    className="text-white/65 hover:text-primary transition text-sm"
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-white/65 hover:text-primary transition text-sm"
                   >
-                    {t(`services.items.${s.key}.title`)}
+                    <Icon className="h-4 w-4" strokeWidth={1.8} />
+                    {t(`footer.socials.${key}`)}
                   </a>
                 </li>
               ))}
@@ -891,8 +912,10 @@ function Footer() {
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary mb-4">{t('footer.columnChurch')}</p>
             <ul className="space-y-2.5">
-              <li><a href="#vision" onClick={(e) => scrollToSection(e, 'vision')} className="text-white/65 hover:text-primary transition text-sm">{t('footer.ourVision')}</a></li>
+              <li><a href="#vision" onClick={(e) => scrollToSection(e, 'vision')} className="text-white/65 hover:text-primary transition text-sm">{t('footer.growth')}</a></li>
               <li><a href="#domingo" onClick={(e) => scrollToSection(e, 'domingo')} className="text-white/65 hover:text-primary transition text-sm">{t('footer.aSunday')}</a></li>
+              <li><a href="#ministerios" onClick={(e) => scrollToSection(e, 'ministerios')} className="text-white/65 hover:text-primary transition text-sm">{t('footer.ourVision')}</a></li>
+              <li><a href="#distingue" onClick={(e) => scrollToSection(e, 'distingue')} className="text-white/65 hover:text-primary transition text-sm">{t('footer.distingue')}</a></li>
               <li><a href="#contacto" onClick={(e) => scrollToSection(e, 'contacto')} className="text-white/65 hover:text-primary transition text-sm">{t('nav.contact')}</a></li>
             </ul>
           </div>
@@ -901,24 +924,18 @@ function Footer() {
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary mb-4">{t('footer.columnContact')}</p>
             <ul className="space-y-2.5">
               <li>
-                <a href="tel:+18645678516" className="text-white/65 hover:text-primary transition text-sm">864-567-8516</a>
+                <a href="tel:+18645674567" className="text-white/65 hover:text-primary transition text-sm">(864) 567-4567</a>
               </li>
               <li>
-                <a href="mailto:pastorjaves@hotmail.es" className="text-white/65 hover:text-primary transition text-sm">pastorjaves@hotmail.es</a>
+                <a href="mailto:nazareno.greenville@live.com" className="text-white/65 hover:text-primary transition text-sm">nazareno.greenville@live.com</a>
               </li>
-              <li className="text-white/65 text-sm">Greenville, SC</li>
+              <li className="text-white/65 text-sm">724 Garlington Rd, Greenville, SC</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div className="flex items-center gap-2.5">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping" />
-              <span className="relative h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/60">{t('footer.livePresence')}</span>
-          </div>
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/60">{t('footer.servicesEverySunday')}</span>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-white/50 text-xs font-mono">
             <Link to="/privacidad" className="hover:text-primary transition">{t('footer.privacy')}</Link>
@@ -952,7 +969,7 @@ export default function App() {
         <Hero />
         <Pillars />
         <Protocol />
-        <ServicesGrid />
+        <MinistryPath />
         <TrustSignals />
         <ContactForm />
       </main>

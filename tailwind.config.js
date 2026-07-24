@@ -4,24 +4,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Piedra Quieta brand palette
-        graphite: '#33312C',
-        sage: '#7C8567',
-        clay: '#C98358',
-        cream: '#FBF8F2',
-        sand: '#F2ECDF',
+        // Disciples Church brand palette
+        green: '#1C5A38',
+        gold: '#B98A32',
+        espresso: '#332A1C',
+        sand: '#EFE3CC',
+        ivory: '#FAF6EC',
         // semantic tokens mapped onto the brand palette
-        primary: '#C98358',
-        'primary-dark': '#A56B48',
-        'primary-light': '#DAAB8D',
-        accent: '#7C8567',
-        'accent-dark': '#666D54',
-        background: '#FBF8F2',
+        primary: '#1C5A38',
+        'primary-dark': '#144328',
+        'primary-light': '#3C7A56',
+        accent: '#B98A32',
+        'accent-dark': '#96701F',
+        background: '#FAF6EC',
         surface: '#FFFFFF',
-        ink: '#33312C',
-        muted: '#6C6962',
-        divider: '#E7E1D4',
-        deep: '#33312C',
+        ink: '#332A1C',
+        muted: '#6B6153',
+        divider: '#E4D9C0',
+        deep: '#332A1C',
       },
       fontFamily: {
         display: ['"Big Shoulders Display"', 'system-ui', 'sans-serif'],

@@ -18,104 +18,98 @@ export const translations = {
       vision: 'Visión',
       sunday: 'Un Domingo',
       contact: 'Contacto',
+      give: 'Dar',
+      live: 'Vivo',
     },
     hero: {
-      founded: 'Fundada en 2020 · Greenville, SC',
       imageAlt: 'Congregación de Disciples Church adorando durante un servicio dominical',
       subtitle:
         'Una iglesia multicultural en el Upstate de Carolina del Sur, comprometida a seguir a Jesús, formar discípulos y alcanzar a las naciones.',
       serviceTime: 'Domingos · 11:00 AM',
-      scroll: 'Desliza',
     },
     pillars: {
-      eyebrow: '╱ Nuestra visión',
-      heading1: 'Una familia de discípulos.',
-      heading2: 'Para todas las naciones.',
-      intro:
-        'La misión de Disciples es hacer discípulos. Creemos que Dios transforma vidas a través de relaciones, comunidad y discipulado intencional.',
+      heading: 'Una comunidad en crecimiento.',
+      subtitle: 'Grupos, naciones y personas unidas por un mismo llamado: hacer discípulos.',
       items: {
         community: {
-          title: 'Comunidad',
           label: 'grupos familiares',
-          desc: 'Más de 20 Grupos Familiares se reúnen cada semana en hogares por todo el Upstate para crecer juntos en la fe.',
+          desc: 'Más de 30 Grupos Familiares se reúnen cada semana en hogares por todo el Upstate para crecer juntos en la fe.',
         },
         nations: {
-          title: 'Naciones',
           label: 'naciones representadas',
           desc: 'Somos una familia multicultural: 17 naciones se reúnen bajo un mismo techo para adorar a un mismo Dios.',
         },
         family: {
-          title: 'Familia',
           label: 'miembros activos',
-          desc: 'Cerca de 400 personas llaman a Disciples su hogar espiritual, creciendo juntas desde el año 2020.',
+          desc: 'Cerca de 300 personas llaman a Disciples su hogar espiritual, creciendo juntas desde el año 2020.',
         },
       },
     },
     protocol: {
-      eyebrow: '╱ Un domingo en Disciples',
-      heading1: 'Tres momentos.',
-      heading2: 'Una misma familia.',
-      stepLabel: 'Paso',
-      brandTag: 'Disciples',
+      heading: 'Un Domingo en Disciples',
+      subtitle: 'Te esperamos este domingo.',
       steps: {
         worship: {
           title: 'Adoración',
-          tagline: 'Comenzamos a las 11:00 AM.',
+          tagline: 'Comienza a las 11:00 AM.',
           text: 'Nuestro servicio incluye adoración, oración y enseñanza bíblica centrada en Jesús. Encontrarás un ambiente cálido y personas reales, con traducción simultánea disponible.',
           alt: 'Congregación adorando durante el servicio',
-          meta: 'Paso 1 / Adoración',
+        },
+        children: {
+          title: 'Ministerio Infantil',
+          tagline: 'Bebés y niños hasta 11 años.',
+          text: 'Todos los niños se registran con Kids Check al llegar. Los mayores pueden pasar directamente a la adoración infantil, mientras que los menores de 4 años permanecen con sus padres hasta después de los anuncios.',
+          alt: 'Niños en su clase bíblica durante el servicio',
         },
         table: {
           title: 'A La Mesa',
           tagline: 'Seguimos a la 1:30 PM.',
-          text: 'Después del servicio te invitamos a A La Mesa, un tiempo de comida y compañerismo donde compartimos juntos alrededor de la mesa.',
+          text: 'Después del servicio te invitamos a A La Mesa, un tiempo de comida y hermandad donde compartimos juntos alrededor de la mesa.',
           alt: 'Familia de la iglesia compartiendo en A La Mesa',
-          meta: 'Paso 2 / Comunidad',
         },
         group: {
           title: 'Tu Grupo Familiar',
           tagline: 'Tu próximo paso.',
-          text: 'Acércate a nuestro equipo de Protocolo después del servicio para conectar con un Grupo Familiar y seguir creciendo en comunidad durante la semana.',
+          text: 'Acércate a nuestro equipo de Protocolo después del servicio para conectar con un Grupo Familiar y seguir creciendo en comunidad durante la semana. Hay grupos para adolescentes, jóvenes adultos y adultos, disponibles en español, inglés y bilingües.',
           alt: 'Familia de la iglesia orando junta durante el servicio',
-          meta: 'Paso 3 / Siguiente paso',
         },
       },
     },
-    services: {
-      eyebrow: '╱ Todos nuestros ministerios',
-      heading1: 'Un mismo cuerpo,',
-      heading2: 'muchos ministerios.',
-      intro: 'Hay un lugar para ti en Disciples. Hogar en Greenville, Carolina del Sur, abierto a todo el Upstate.',
-      items: {
-        familyGroups: {
-          title: 'Grupos Familiares',
-          text: 'Más de 20 grupos se reúnen semanalmente en hogares por todo el Upstate para estudiar la Palabra, orar juntos y crecer en comunidad.',
+    path: {
+      heading: 'Nuestra Visión',
+      subtitle: 'El camino del discípulo',
+      intro:
+        'La misión de Disciples es hacer discípulos. Creemos que seguir a Jesús es un camino que se recorre en comunidad. Estos cinco pasos representan la manera en que caminamos junto a cada persona, ayudándola a crecer en su fe hasta vivir como discípulo y hacer discípulos.',
+      steps: {
+        reach: {
+          name: 'Alcanzar',
+          label: 'Grupos Familiares',
+          text: 'La mejor manera de conocer a Jesús y conectar con una comunidad. Más de 20 grupos se reúnen cada semana en hogares por todo el Upstate.',
         },
-        encounter: {
-          title: 'Encuentro',
-          text: 'Un fin de semana dedicado a la sanidad, la libertad y un encuentro transformador con Dios.',
+        affirm: {
+          name: 'Afirmar',
+          label: 'Encuentro & Bautismos',
+          text: 'Todo discípulo necesita un encuentro con Dios y la oportunidad de declarar públicamente su nueva vida en Cristo.',
         },
-        baptisms: {
-          title: 'Bautismos',
-          text: 'Una celebración pública de lo que Dios está haciendo en tu vida y tu decisión de seguir a Jesús.',
+        equip: {
+          name: 'Equipar',
+          label: 'Escuela de Liderazgo',
+          text: 'Cinco niveles de formación bíblica para aprender a vivir como Jesús y servir a otros.',
         },
-        leadershipSchool: {
-          title: 'Escuela de Liderazgo',
-          text: 'Cinco niveles de formación para crecer en tu fe, vivir como Cristo y aprender a hacer discípulos.',
+        train: {
+          name: 'Instruir',
+          label: 'Discipulado Intencional',
+          text: 'Crecemos continuamente en la Palabra, el carácter y la práctica del discipulado.',
         },
-        children: {
-          title: 'Ministerio Infantil',
-          text: 'Ambientes seguros y preparados para bebés y niños hasta los 11 años, con clases bíblicas apropiadas para su edad.',
-        },
-        translation: {
-          title: 'Traducción Simultánea',
-          text: 'Somos una iglesia bilingüe: cada servicio cuenta con traducción simultánea para que todos se sientan en casa.',
+        send: {
+          name: 'Enviar',
+          label: 'Haz Discípulos',
+          text: 'El objetivo no es solo asistir a una iglesia. Es convertirte en un líder que haga discípulos y abra camino para que otros conozcan a Jesús.',
         },
       },
     },
     trust: {
-      eyebrow: '╱ Por qué confiar en nosotros',
-      heading: 'Más que un servicio dominical.',
+      heading: 'Lo que nos distingue.',
       badges: {
         denomination: {
           title: 'Iglesia del Nazareno',
@@ -132,9 +126,7 @@ export const translations = {
       },
     },
     contact: {
-      eyebrow: '╱ Contacto',
-      heading1: '¿Cómo podemos',
-      heading2: 'ayudarte?',
+      heading: '¿Cómo podemos ayudarte?',
       intro: 'Escríbenos y con gusto te contactaremos para resolver tus dudas o ayudarte a dar tu próximo paso.',
       call: 'Llámanos',
       email: 'Escríbenos',
@@ -160,22 +152,36 @@ export const translations = {
     footer: {
       tagline: 'Disciples Church — una familia multicultural en el Upstate de Carolina del Sur.',
       description: 'Una iglesia comprometida a seguir a Jesús, formar discípulos y alcanzar a las naciones.',
-      denomination: 'Iglesia del Nazareno · Tradición Wesleyana',
-      columnMinistries: 'Ministerios',
+      denomination: 'Iglesia del Nazareno',
+      columnSocials: 'Socials',
       columnChurch: 'Iglesia',
       columnContact: 'Contacto',
-      ourVision: 'Nuestra Visión',
+      socials: {
+        youtube: 'YouTube',
+        facebook: 'Facebook',
+        instagram: 'Instagram',
+      },
+      growth: 'Crecimiento',
+      ourVision: 'Visión',
       aSunday: 'Un Domingo',
-      livePresence: 'Presencia en vivo · Servicios cada domingo',
+      distingue: 'Lo Que Nos Distingue',
+      servicesEverySunday: 'Servicios cada domingo',
       privacy: 'Privacidad',
       terms: 'Términos',
       copyright: '© 2026 Disciples Church',
+    },
+    give: {
+      title: 'Dar',
+      subtitleLine1: 'Un acto de adoración.',
+      subtitleLine2: 'Una respuesta de gratitud.',
+      body: 'Creemos que el diezmo y la ofrenda son una oportunidad para honrar a Dios con lo que Él nos ha dado. Al dar con un corazón agradecido, confiamos en sus promesas de provisión, protección y bendición para quienes caminan en fidelidad.',
+      scripture: 'Malaquías 3:10-12',
     },
     legal: {
       backHome: 'Volver al inicio',
       updated: 'Última actualización: julio de 2026',
       contactSection: 'Contacto',
-      addressLine: 'Disciples Church · 724 Garlington Rd, Greenville, SC 29615 · 864-567-8516 · pastorjaves@hotmail.es',
+      addressLine: 'Disciples Church · 724 Garlington Rd, Greenville, SC 29615 · (864) 567-4567 · nazareno.greenville@live.com',
       privacy: {
         title: 'Política de Privacidad',
         sections: {
@@ -189,7 +195,7 @@ export const translations = {
           },
           rights: {
             title: 'Tus derechos',
-            text: 'Puedes solicitar en cualquier momento que actualicemos o eliminemos tu información de contacto, escribiéndonos a pastorjaves@hotmail.es.',
+            text: 'Puedes solicitar en cualquier momento que actualicemos o eliminemos tu información de contacto, escribiéndonos a nazareno.greenville@live.com.',
           },
         },
       },
@@ -227,104 +233,98 @@ export const translations = {
       vision: 'Vision',
       sunday: 'A Sunday',
       contact: 'Contact',
+      give: 'Give',
+      live: 'Live',
     },
     hero: {
-      founded: 'Founded in 2020 · Greenville, SC',
       imageAlt: 'Disciples Church congregation worshiping during a Sunday service',
       subtitle:
         'A multicultural church in the Upstate of South Carolina, committed to following Jesus, forming disciples, and reaching the nations.',
       serviceTime: 'Sundays · 11:00 AM',
-      scroll: 'Scroll',
     },
     pillars: {
-      eyebrow: '╱ Our vision',
-      heading1: 'A family of disciples.',
-      heading2: 'For every nation.',
-      intro:
-        "Disciples' mission is to make disciples. We believe God transforms lives through relationships, community, and intentional discipleship.",
+      heading: 'A community in growth.',
+      subtitle: 'Groups, nations, and people united by one calling: making disciples.',
       items: {
         community: {
-          title: 'Community',
           label: 'family groups',
-          desc: 'More than 20 Family Groups meet weekly in homes across the Upstate to grow together in faith.',
+          desc: 'More than 30 Family Groups meet weekly in homes across the Upstate to grow together in faith.',
         },
         nations: {
-          title: 'Nations',
           label: 'nations represented',
           desc: 'We are a multicultural family: 17 nations gather under one roof to worship one God.',
         },
         family: {
-          title: 'Family',
           label: 'active members',
-          desc: 'Nearly 400 people call Disciples their spiritual home, growing together since 2020.',
+          desc: 'Nearly 300 people call Disciples their spiritual home, growing together since 2020.',
         },
       },
     },
     protocol: {
-      eyebrow: '╱ A Sunday at Disciples',
-      heading1: 'Three moments.',
-      heading2: 'One family.',
-      stepLabel: 'Step',
-      brandTag: 'Disciples',
+      heading: 'A Sunday at Disciples',
+      subtitle: "We'll see you this Sunday.",
       steps: {
         worship: {
           title: 'Worship',
           tagline: 'We begin at 11:00 AM.',
           text: "Our service includes worship, prayer, and Jesus-centered Bible teaching. You'll find a warm atmosphere and real people, with simultaneous translation available.",
           alt: 'Congregation worshiping during the service',
-          meta: 'Step 1 / Worship',
+        },
+        children: {
+          title: "Children's Ministry",
+          tagline: 'Babies and children up to age 11.',
+          text: "All children check in with Kids Check upon arrival. Older children can go directly to kids' worship, while those under 4 stay with their parents until after announcements.",
+          alt: "Children in their Bible class during the service",
         },
         table: {
           title: 'At the Table',
           tagline: 'Next, at 1:30 PM.',
           text: "After the service, we invite you to A La Mesa (“At the Table”), a time of food and fellowship where we share a meal together.",
           alt: 'Church family sharing at A La Mesa',
-          meta: 'Step 2 / Community',
         },
         group: {
           title: 'Your Family Group',
           tagline: 'Your next step.',
-          text: 'Stop by our Protocol team after the service to connect with a Family Group and keep growing in community throughout the week.',
+          text: 'Stop by our Protocol team after the service to connect with a Family Group and keep growing in community throughout the week. There are groups for teens, young adults, and adults, available in Spanish, English, and bilingual.',
           alt: 'Church family praying together during the service',
-          meta: 'Step 3 / Next step',
         },
       },
     },
-    services: {
-      eyebrow: '╱ All our ministries',
-      heading1: 'One body,',
-      heading2: 'many ministries.',
-      intro: "There's a place for you at Disciples. Home in Greenville, South Carolina, open to the whole Upstate.",
-      items: {
-        familyGroups: {
-          title: 'Family Groups',
-          text: 'More than 20 groups meet weekly in homes across the Upstate to study the Word, pray together, and grow in community.',
+    path: {
+      heading: 'Our Vision',
+      subtitle: "the disciple's path",
+      intro:
+        "Disciples' mission is to make disciples. We believe following Jesus is a path walked in community. These five steps represent how we walk alongside each person, helping them grow in faith until they live as a disciple and make disciples.",
+      steps: {
+        reach: {
+          name: 'Reach',
+          label: 'Family Groups',
+          text: 'The best way to know Jesus and connect with a community. More than 20 groups meet weekly in homes across the Upstate.',
         },
-        encounter: {
-          title: 'Encounter',
-          text: 'A weekend dedicated to healing, freedom, and a transformative encounter with God.',
+        affirm: {
+          name: 'Affirm',
+          label: 'Encounter & Baptisms',
+          text: 'Every disciple needs an encounter with God and the chance to publicly declare their new life in Christ.',
         },
-        baptisms: {
-          title: 'Baptisms',
-          text: 'A public celebration of what God is doing in your life and your decision to follow Jesus.',
+        equip: {
+          name: 'Equip',
+          label: 'School of Leadership',
+          text: 'Five levels of biblical training to learn to live like Jesus and serve others.',
         },
-        leadershipSchool: {
-          title: 'School of Leadership',
-          text: 'Five levels of training to grow in your faith, live like Christ, and learn to make disciples.',
+        train: {
+          name: 'Instruct',
+          label: 'Intentional Discipleship',
+          text: 'We keep growing continuously in the Word, in character, and in the practice of discipleship.',
         },
-        children: {
-          title: "Children's Ministry",
-          text: 'Safe, prepared environments for babies and children up to age 11, with age-appropriate Bible classes.',
-        },
-        translation: {
-          title: 'Simultaneous Translation',
-          text: 'We are a bilingual church: every service offers simultaneous translation so everyone feels at home.',
+        send: {
+          name: 'Send',
+          label: 'Make Disciples',
+          text: "The goal isn't just attending a church. It's becoming a leader who makes disciples and opens the way for others to know Jesus.",
         },
       },
     },
     trust: {
-      eyebrow: '╱ Why trust us',
-      heading: 'More than a Sunday service.',
+      heading: 'What sets us apart.',
       badges: {
         denomination: {
           title: 'Church of the Nazarene',
@@ -341,9 +341,7 @@ export const translations = {
       },
     },
     contact: {
-      eyebrow: '╱ Contact',
-      heading1: 'How can we',
-      heading2: 'help you?',
+      heading: 'How can we help you?',
       intro: "Write to us and we'll gladly get in touch to answer your questions or help you take your next step.",
       call: 'Call us',
       email: 'Email us',
@@ -369,22 +367,36 @@ export const translations = {
     footer: {
       tagline: 'Disciples Church — a multicultural family in the Upstate of South Carolina.',
       description: 'A church committed to following Jesus, making disciples, and reaching the nations.',
-      denomination: 'Church of the Nazarene · Wesleyan Tradition',
-      columnMinistries: 'Ministries',
+      denomination: 'Church of the Nazarene',
+      columnSocials: 'Socials',
       columnChurch: 'Church',
       columnContact: 'Contact',
-      ourVision: 'Our Vision',
+      socials: {
+        youtube: 'YouTube',
+        facebook: 'Facebook',
+        instagram: 'Instagram',
+      },
+      growth: 'Growth',
+      ourVision: 'Vision',
       aSunday: 'A Sunday',
-      livePresence: 'Live presence · Services every Sunday',
+      distingue: 'What Sets Us Apart',
+      servicesEverySunday: 'Services every Sunday',
       privacy: 'Privacy',
       terms: 'Terms',
       copyright: '© 2026 Disciples Church',
+    },
+    give: {
+      title: 'Give',
+      subtitleLine1: 'An act of worship.',
+      subtitleLine2: 'A response of gratitude.',
+      body: 'We believe tithes and offerings are an opportunity to honor God with what He has given us. When we give with a grateful heart, we trust His promises of provision, protection, and blessing for those who walk in faithfulness.',
+      scripture: 'Malachi 3:10-12',
     },
     legal: {
       backHome: 'Back to home',
       updated: 'Last updated: July 2026',
       contactSection: 'Contact',
-      addressLine: 'Disciples Church · 724 Garlington Rd, Greenville, SC 29615 · 864-567-8516 · pastorjaves@hotmail.es',
+      addressLine: 'Disciples Church · 724 Garlington Rd, Greenville, SC 29615 · (864) 567-4567 · nazareno.greenville@live.com',
       privacy: {
         title: 'Privacy Policy',
         sections: {
@@ -398,7 +410,7 @@ export const translations = {
           },
           rights: {
             title: 'Your rights',
-            text: 'You may request at any time that we update or delete your contact information by writing to us at pastorjaves@hotmail.es.',
+            text: 'You may request at any time that we update or delete your contact information by writing to us at nazareno.greenville@live.com.',
           },
         },
       },
