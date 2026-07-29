@@ -792,7 +792,7 @@ function ContactForm() {
                 </span>
                 <span>
                   <span className="block font-mono text-[10px] uppercase tracking-widest text-muted">{t('contact.visit')}</span>
-                  <span className="font-display font-semibold text-ink text-lg">724 Garlington Rd, Greenville, SC</span>
+                  <span className="font-display font-semibold text-ink text-lg">724 Garlington Rd, Greenville, SC 29615</span>
                 </span>
               </a>
             </div>
@@ -940,7 +940,7 @@ function Footer() {
               <li>
                 <a href="mailto:nazareno.greenville@live.com" className="text-white hover:text-primary transition text-sm">nazareno.greenville@live.com</a>
               </li>
-              <li className="text-white text-sm">724 Garlington Rd, Greenville, SC</li>
+              <li className="text-white text-sm">724 Garlington Rd, Greenville, SC 29615</li>
             </ul>
           </div>
         </div>
