@@ -476,21 +476,29 @@ function Protocol() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray('.protocol-card')
-      cards.forEach((card, i) => {
-        if (i === cards.length - 1) return
-        gsap.to(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: 'top top+=100',
-            endTrigger: cards[cards.length - 1],
-            end: 'top top+=120',
-            scrub: 1,
-          },
-          scale: 0.92,
-          filter: 'blur(6px) saturate(0.7)',
-          opacity: 0.5,
-          ease: 'none',
+      // The pinned/dimmed stacking effect only works when a card's content
+      // fits within the viewport — on mobile the card (text + image) is
+      // taller than the screen, so sticky positioning would pin it in place
+      // and cut off the image before it ever scrolls into view. Restrict
+      // the whole sticky-stack treatment to desktop widths.
+      const mm = gsap.matchMedia()
+      mm.add('(min-width: 1024px)', () => {
+        const cards = gsap.utils.toArray('.protocol-card')
+        cards.forEach((card, i) => {
+          if (i === cards.length - 1) return
+          gsap.to(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: 'top top+=100',
+              endTrigger: cards[cards.length - 1],
+              end: 'top top+=120',
+              scrub: 1,
+            },
+            scale: 0.92,
+            filter: 'blur(6px) saturate(0.7)',
+            opacity: 0.5,
+            ease: 'none',
+          })
         })
       })
     }, containerRef)
@@ -510,9 +518,9 @@ function Protocol() {
         {PROTOCOL_META.map((step) => (
           <article
             key={step.key}
-            className="protocol-card sticky top-24 sm:top-28 mx-auto max-w-6xl bg-gradient-to-br from-surface to-background border border-divider rounded-6xl overflow-hidden shadow-2xl shadow-primary/5"
+            className="protocol-card lg:sticky lg:top-24 mx-auto max-w-6xl bg-gradient-to-br from-surface to-background border border-divider rounded-6xl overflow-hidden shadow-2xl shadow-primary/5"
           >
-            <div className="grid lg:grid-cols-5 gap-0 min-h-[60vh] lg:min-h-[70vh]">
+            <div className="grid lg:grid-cols-5 gap-0 lg:min-h-[70vh]">
               <div className="lg:col-span-3 p-8 sm:p-12 lg:p-16 flex flex-col justify-between">
                 <div className="my-12">
                   <span className="font-display font-extrabold text-[7rem] sm:text-[10rem] leading-none text-primary/15 -mb-4 block">
