@@ -20,6 +20,8 @@ import logoFullWhite from './assets/logo/logo-full-white.png'
 import logoWordmarkWhite from './assets/logo/logo-wordmark-white.png'
 import heroWorshipPhoto from './assets/photos/hero-worship.jpg'
 import protocolWorshipPhoto from './assets/photos/protocol-worship.jpg'
+import protocolChildrenPhoto from './assets/photos/protocol-children.jpg'
+import protocolTablePhoto from './assets/photos/protocol-table.jpg'
 import protocolGroupPhoto from './assets/photos/protocol-group.jpg'
 import { useLanguage } from './i18n/LanguageContext'
 import { HERO_TAGLINE_PHRASES } from './i18n/heroTaglines'
@@ -33,9 +35,9 @@ gsap.registerPlugin(ScrollTrigger)
    Constants — ids/icons/order only; all copy comes from t()
 ---------------------------------------------------------------- */
 const NAV_LINKS = [
-  { id: 'ministerios', key: 'nav.ministries' },
   { id: 'vision', key: 'nav.vision' },
   { id: 'domingo', key: 'nav.sunday' },
+  { id: 'ministerios', key: 'nav.ministries' },
   { id: 'contacto', key: 'nav.contact' },
 ]
 
@@ -57,8 +59,8 @@ const scrollToSection = (e, id) => {
 const DISCIPLESHIP_PATH_META = [
   { key: 'reach' },
   { key: 'affirm' },
-  { key: 'equip' },
   { key: 'train' },
+  { key: 'equip' },
   { key: 'send' },
 ]
 
@@ -273,7 +275,7 @@ function Hero() {
 
           <AnimatedTagline />
 
-          <p className="hero-meta mx-auto max-w-xl text-white/75 text-base sm:text-lg mt-8 leading-relaxed">
+          <p className="hero-meta mx-auto max-w-2xl text-white/75 text-base sm:text-lg mt-8 leading-relaxed">
             {t('hero.subtitle')}
           </p>
 
@@ -415,7 +417,7 @@ function Pillars() {
                 )}
               </div>
 
-              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-primary-dark mt-5">
+              <p className="font-body font-semibold text-lg sm:text-xl uppercase tracking-wide text-primary-dark mt-5">
                 {t(`pillars.items.${p.key}.label`)}
               </p>
               <p className="text-muted text-[15px] mt-6 leading-relaxed max-w-xs">{t(`pillars.items.${p.key}.desc`)}</p>
@@ -452,15 +454,14 @@ const PROTOCOL_META = [
     image: protocolWorshipPhoto,
   },
   {
-    // TODO: swap in a real Children's Ministry photo — reusing protocol-group.jpg as a placeholder
     num: '02',
     key: 'children',
-    image: protocolGroupPhoto,
+    image: protocolChildrenPhoto,
   },
   {
     num: '03',
     key: 'table',
-    image: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&q=80',
+    image: protocolTablePhoto,
   },
   {
     num: '04',
@@ -582,10 +583,10 @@ function MinistryPath() {
             {t('path.heading')}
           </h2>
           <p className="font-serif italic text-accent text-2xl sm:text-3xl md:text-4xl mt-4">{t('path.subtitle')}</p>
-          <p className="text-white/60 italic text-base sm:text-lg leading-relaxed mt-6">{t('path.intro')}</p>
+          <p className="text-white italic text-base sm:text-lg leading-relaxed mt-6">{t('path.intro')}</p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-3 lg:gap-2 lg:h-[32rem]">
+        <div className="flex flex-col gap-3">
           {DISCIPLESHIP_PATH_META.map((step, i) => {
             const isActive = activeIndex === i
             const toggle = () => setActiveIndex((cur) => (cur === i ? null : i))
@@ -602,14 +603,18 @@ function MinistryPath() {
                     toggle()
                   }
                 }}
-                className={`path-step group relative bg-white/5 border border-white/10 rounded-7xl cursor-pointer outline-none transition-[flex-grow,flex-basis,min-height] duration-500 ease-out lg:flex lg:flex-row lg:items-center lg:min-h-0 lg:flex-1 lg:hover:flex-[2.4] ${
-                  isActive ? 'min-h-[14rem] lg:flex-[2.4]' : 'min-h-[6rem]'
+                className={`path-step group relative bg-white/5 border border-white/10 rounded-7xl cursor-pointer outline-none transition-[min-height] duration-500 ease-out hover:min-h-[14rem] ${
+                  isActive ? 'min-h-[14rem]' : 'min-h-[7rem]'
                 }`}
               >
-                <div className="absolute inset-0 flex items-center justify-center px-6 py-6 transition-opacity duration-300 lg:static lg:px-6 lg:py-10 lg:shrink-0">
+                <div
+                  className={`absolute inset-0 flex items-center justify-center px-6 py-6 transition-opacity duration-300 group-hover:opacity-0 group-hover:pointer-events-none ${
+                    isActive ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                  }`}
+                >
                   <span
-                    className={`font-display uppercase font-extrabold tracking-tight whitespace-nowrap select-none transition-all duration-500 text-3xl sm:text-4xl lg:text-4xl lg:[writing-mode:vertical-rl] lg:rotate-180 lg:opacity-100 lg:group-hover:text-2xl lg:group-hover:text-primary ${
-                      isActive ? 'opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto lg:text-2xl text-primary' : 'opacity-100 text-white/70'
+                    className={`font-display uppercase font-extrabold tracking-tight whitespace-nowrap select-none transition-colors duration-500 text-4xl sm:text-5xl ${
+                      isActive ? 'text-primary' : 'text-white/70 group-hover:text-primary'
                     }`}
                   >
                     {t(`path.steps.${step.key}.name`)}
@@ -617,16 +622,14 @@ function MinistryPath() {
                 </div>
 
                 <div
-                  className={`absolute inset-0 flex flex-col justify-center px-8 transition-opacity duration-300 lg:static lg:inset-auto lg:flex-col lg:justify-center lg:overflow-hidden lg:px-0 lg:py-6 lg:opacity-100 lg:max-w-0 lg:transition-all lg:duration-500 lg:group-hover:max-w-xs lg:group-hover:opacity-100 lg:group-hover:pr-8 ${
-                    isActive
-                      ? 'opacity-100 pointer-events-auto lg:max-w-xs lg:pr-8'
-                      : 'opacity-0 pointer-events-none lg:pr-0'
+                  className={`absolute inset-0 flex flex-col items-center justify-center px-8 text-center transition-opacity duration-300 group-hover:opacity-100 group-hover:pointer-events-auto ${
+                    isActive ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                   }`}
                 >
-                  <p className="font-display uppercase font-bold text-base sm:text-lg text-white mb-2 whitespace-nowrap">
+                  <p className="font-display uppercase font-bold text-lg sm:text-xl text-white mb-2">
                     {t(`path.steps.${step.key}.label`)}
                   </p>
-                  <p className="text-white/60 text-sm leading-relaxed">{t(`path.steps.${step.key}.text`)}</p>
+                  <p className="text-white text-sm sm:text-base leading-relaxed max-w-2xl">{t(`path.steps.${step.key}.text`)}</p>
                 </div>
               </div>
             )
@@ -686,8 +689,8 @@ function TrustSignals() {
               }`}
             >
               <Icon className="h-6 w-6 text-primary mb-3" strokeWidth={1.8} />
-              <h3 className="font-display uppercase font-bold text-lg text-ink mb-1.5">{t(`trust.badges.${key}.title`)}</h3>
-              <p className="text-muted text-sm leading-relaxed">{t(`trust.badges.${key}.text`)}</p>
+              <h3 className="font-display uppercase font-bold text-xl text-ink mb-1.5">{t(`trust.badges.${key}.title`)}</h3>
+              <p className="text-muted text-base leading-relaxed">{t(`trust.badges.${key}.text`)}</p>
             </div>
           ))}
         </div>
@@ -871,7 +874,7 @@ function Footer() {
             <span className="font-serif italic normal-case font-medium text-accent block">{tagline.line2}</span>
           </h2>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mt-8 gap-6">
-            <p className="text-white/50 max-w-md">{t('footer.tagline')}</p>
+            <p className="text-white max-w-md">{t('footer.tagline')}</p>
             <a
               href="#contacto"
               onClick={(e) => scrollToSection(e, 'contacto')}
@@ -886,12 +889,12 @@ function Footer() {
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="col-span-2">
             <img src={logoFullWhite} alt="Disciples Church" className="h-14 sm:h-16 mb-5 object-contain" />
-            <p className="text-white/50 text-sm leading-relaxed max-w-xs">{t('footer.description')}</p>
-            <p className="font-mono text-[10px] uppercase tracking-widest text-white/30 mt-6">{t('footer.denomination')}</p>
+            <p className="text-white text-sm leading-relaxed max-w-xs">{t('footer.description')}</p>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-white mt-6">{t('footer.denomination')}</p>
           </div>
 
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary mb-4">{t('footer.columnSocials')}</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white mb-4">{t('footer.columnSocials')}</p>
             <ul className="space-y-2.5">
               {SOCIAL_LINKS.map(({ key, Icon, href }) => (
                 <li key={key}>
@@ -899,7 +902,7 @@ function Footer() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-white/65 hover:text-primary transition text-sm"
+                    className="flex items-center gap-2 text-white hover:text-primary transition text-sm"
                   >
                     <Icon className="h-4 w-4" strokeWidth={1.8} />
                     {t(`footer.socials.${key}`)}
@@ -910,34 +913,34 @@ function Footer() {
           </div>
 
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary mb-4">{t('footer.columnChurch')}</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white mb-4">{t('footer.columnChurch')}</p>
             <ul className="space-y-2.5">
-              <li><a href="#vision" onClick={(e) => scrollToSection(e, 'vision')} className="text-white/65 hover:text-primary transition text-sm">{t('footer.growth')}</a></li>
-              <li><a href="#domingo" onClick={(e) => scrollToSection(e, 'domingo')} className="text-white/65 hover:text-primary transition text-sm">{t('footer.aSunday')}</a></li>
-              <li><a href="#ministerios" onClick={(e) => scrollToSection(e, 'ministerios')} className="text-white/65 hover:text-primary transition text-sm">{t('footer.ourVision')}</a></li>
-              <li><a href="#distingue" onClick={(e) => scrollToSection(e, 'distingue')} className="text-white/65 hover:text-primary transition text-sm">{t('footer.distingue')}</a></li>
-              <li><a href="#contacto" onClick={(e) => scrollToSection(e, 'contacto')} className="text-white/65 hover:text-primary transition text-sm">{t('nav.contact')}</a></li>
+              <li><a href="#vision" onClick={(e) => scrollToSection(e, 'vision')} className="text-white hover:text-primary transition text-sm">{t('footer.growth')}</a></li>
+              <li><a href="#domingo" onClick={(e) => scrollToSection(e, 'domingo')} className="text-white hover:text-primary transition text-sm">{t('footer.aSunday')}</a></li>
+              <li><a href="#ministerios" onClick={(e) => scrollToSection(e, 'ministerios')} className="text-white hover:text-primary transition text-sm">{t('footer.ourVision')}</a></li>
+              <li><a href="#distingue" onClick={(e) => scrollToSection(e, 'distingue')} className="text-white hover:text-primary transition text-sm">{t('footer.distingue')}</a></li>
+              <li><a href="#contacto" onClick={(e) => scrollToSection(e, 'contacto')} className="text-white hover:text-primary transition text-sm">{t('nav.contact')}</a></li>
             </ul>
           </div>
 
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary mb-4">{t('footer.columnContact')}</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white mb-4">{t('footer.columnContact')}</p>
             <ul className="space-y-2.5">
               <li>
-                <a href="tel:+18645674567" className="text-white/65 hover:text-primary transition text-sm">(864) 567-4567</a>
+                <a href="tel:+18645674567" className="text-white hover:text-primary transition text-sm">(864) 567-4567</a>
               </li>
               <li>
-                <a href="mailto:nazareno.greenville@live.com" className="text-white/65 hover:text-primary transition text-sm">nazareno.greenville@live.com</a>
+                <a href="mailto:nazareno.greenville@live.com" className="text-white hover:text-primary transition text-sm">nazareno.greenville@live.com</a>
               </li>
-              <li className="text-white/65 text-sm">724 Garlington Rd, Greenville, SC</li>
+              <li className="text-white text-sm">724 Garlington Rd, Greenville, SC</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/60">{t('footer.servicesEverySunday')}</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white">{t('footer.servicesEverySunday')}</span>
 
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-white/50 text-xs font-mono">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-white text-xs font-mono">
             <Link to="/privacidad" className="hover:text-primary transition">{t('footer.privacy')}</Link>
             <Link to="/terminos" className="hover:text-primary transition">{t('footer.terms')}</Link>
             <span>{t('footer.copyright')}</span>

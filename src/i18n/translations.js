@@ -14,8 +14,8 @@ export const translations = {
       languageAnnounce: 'Idioma cambiado a español',
     },
     nav: {
-      ministries: 'Ministerios',
-      vision: 'Visión',
+      ministries: 'Visión',
+      vision: 'Impacto',
       sunday: 'Un Domingo',
       contact: 'Contacto',
       give: 'Dar',
@@ -58,7 +58,7 @@ export const translations = {
         children: {
           title: 'Ministerio Infantil',
           tagline: 'Bebés y niños hasta 11 años.',
-          text: 'Todos los niños se registran con Kids Check al llegar. Los mayores pueden pasar directamente a la adoración infantil, mientras que los menores de 4 años permanecen con sus padres hasta después de los anuncios.',
+          text: 'Todos los niños se registran con Kids Check al llegar. Los mayores pueden pasar directamente a la adoración infantil, mientras que los menores de 3 años permanecen con sus padres hasta después de los anuncios.',
           alt: 'Niños en su clase bíblica durante el servicio',
         },
         table: {
@@ -70,7 +70,7 @@ export const translations = {
         group: {
           title: 'Tu Grupo Familiar',
           tagline: 'Tu próximo paso.',
-          text: 'Acércate a nuestro equipo de Protocolo después del servicio para conectar con un Grupo Familiar y seguir creciendo en comunidad durante la semana. Hay grupos para adolescentes, jóvenes adultos y adultos, disponibles en español, inglés y bilingües.',
+          text: 'Acércate a nuestro equipo de Protocolo después del servicio para conectar con un Grupo Familiar y seguir creciendo en comunidad durante la semana. Hay grupos para adolescentes, jóvenes y adultos, disponibles en español, inglés y bilingües.',
           alt: 'Familia de la iglesia orando junta durante el servicio',
         },
       },
@@ -126,8 +126,8 @@ export const translations = {
       },
     },
     contact: {
-      heading: '¿Cómo podemos ayudarte?',
-      intro: 'Escríbenos y con gusto te contactaremos para resolver tus dudas o ayudarte a dar tu próximo paso.',
+      heading: '¿Cómo podemos acompañarte en tu caminar con Dios?',
+      intro: 'Ya sea que tengas preguntas, necesites oración o quieras conocer más sobre Disciples, estaremos encantados de escucharte y acompañarte en tu camino de fe.',
       call: 'Llámanos',
       email: 'Escríbenos',
       visit: 'Visítanos',
@@ -229,8 +229,8 @@ export const translations = {
       languageAnnounce: 'Language changed to English',
     },
     nav: {
-      ministries: 'Ministries',
-      vision: 'Vision',
+      ministries: 'Vision',
+      vision: 'Impact',
       sunday: 'A Sunday',
       contact: 'Contact',
       give: 'Give',
@@ -243,7 +243,7 @@ export const translations = {
       serviceTime: 'Sundays · 11:00 AM',
     },
     pillars: {
-      heading: 'A community in growth.',
+      heading: 'A movement of disciples.',
       subtitle: 'Groups, nations, and people united by one calling: making disciples.',
       items: {
         community: {
@@ -273,7 +273,7 @@ export const translations = {
         children: {
           title: "Children's Ministry",
           tagline: 'Babies and children up to age 11.',
-          text: "All children check in with Kids Check upon arrival. Older children can go directly to kids' worship, while those under 4 stay with their parents until after announcements.",
+          text: "All children check in with Kids Check upon arrival. Older children can go directly to kids' worship, while those under 3 stay with their parents until after announcements.",
           alt: "Children in their Bible class during the service",
         },
         table: {
@@ -285,14 +285,14 @@ export const translations = {
         group: {
           title: 'Your Family Group',
           tagline: 'Your next step.',
-          text: 'Stop by our Protocol team after the service to connect with a Family Group and keep growing in community throughout the week. There are groups for teens, young adults, and adults, available in Spanish, English, and bilingual.',
+          text: 'Stop by our Protocol team after the service to connect with a Family Group and keep growing in community throughout the week. There are groups for teens, youth, and adults, available in Spanish, English, and bilingual.',
           alt: 'Church family praying together during the service',
         },
       },
     },
     path: {
       heading: 'Our Vision',
-      subtitle: "the disciple's path",
+      subtitle: "The disciple's path",
       intro:
         "Disciples' mission is to make disciples. We believe following Jesus is a path walked in community. These five steps represent how we walk alongside each person, helping them grow in faith until they live as a disciple and make disciples.",
       steps: {
@@ -341,8 +341,8 @@ export const translations = {
       },
     },
     contact: {
-      heading: 'How can we help you?',
-      intro: "Write to us and we'll gladly get in touch to answer your questions or help you take your next step.",
+      heading: 'How can we walk with you in your journey with God?',
+      intro: "Whether you have questions, need prayer, or want to learn more about Disciples, we'd love to hear from you and walk alongside you in your journey of faith.",
       call: 'Call us',
       email: 'Email us',
       visit: 'Visit us',
