@@ -1,8 +1,10 @@
 (function () {
   const app = document.getElementById('app');
-  const ORDEN = ['artesano', 'racional', 'guardian', 'idealista'];
+  const ORDEN = ['racional', 'artesano', 'guardian', 'idealista'];
+  const NOTA_LIMITES = 'Este cuestionario es una herramienta orientativa de autoconocimiento, no una evaluación psicológica validada.';
 
-  const estado = { pantalla: 'inicio', temperamento: null, indice: 0, respuestas: [] };
+  // respuestas: { [pregunta.id]: índice de la opción elegida }
+  const estado = { pantalla: 'inicio', temperamento: null, respuestas: {} };
 
   function esc(texto) {
     return String(texto)
@@ -25,10 +27,10 @@
   }
 
   const FORMAS = {
-    // llama
-    artesano: { puntos: ['50,4', '64,26', '78,18', '84,50', '74,80', '50,94', '26,80', '16,50', '24,28', '38,38'], centro: '50,60' },
     // gema
     racional: { puntos: ['30,12', '50,8', '70,12', '90,36', '70,64', '50,94', '30,64', '10,36'], centro: '50,40' },
+    // llama
+    artesano: { puntos: ['50,4', '64,26', '78,18', '84,50', '74,80', '50,94', '26,80', '16,50', '24,28', '38,38'], centro: '50,60' },
     // escudo
     guardian: { puntos: ['50,6', '70,12', '88,20', '86,46', '74,72', '50,94', '26,72', '14,46', '12,20', '30,12'], centro: '50,46' },
     // hoja
@@ -69,6 +71,29 @@
     </svg>`;
   }
 
+  // ---------- Puntuación ----------
+
+  // Reglas de la guía: 1 punto por respuesta al perfil de la opción; empates muestran
+  // todos los perfiles empatados; orden de mayor a menor conservando el del catálogo.
+  function calcular(clave) {
+    const { perfiles, preguntas } = CUESTIONARIOS[clave];
+    const faltan = preguntas.filter((q) => estado.respuestas[q.id] === undefined);
+    if (faltan.length) return { incompleto: true, faltan };
+
+    const puntos = Object.fromEntries(perfiles.map((p) => [p.id, 0]));
+    preguntas.forEach((q) => {
+      puntos[q.opciones[estado.respuestas[q.id]].profile_id] += 1;
+    });
+    const maximo = Math.max(...Object.values(puntos));
+    return {
+      incompleto: false,
+      total: preguntas.length,
+      ganadores: perfiles.filter((p) => puntos[p.id] === maximo),
+      orden: perfiles.slice().sort((a, b) => puntos[b.id] - puntos[a.id]),
+      puntos,
+    };
+  }
+
   // ---------- Pantallas ----------
 
   function aplicarColor(clave) {
@@ -81,16 +106,30 @@
     s.setProperty('--tema-texto-boton', t ? t.textoBoton : '#ffffff');
   }
 
+  function nota() {
+    return `<p class="nota">${NOTA_LIMITES}</p>`;
+  }
+
+  function encabezado(clave) {
+    const t = TEMPERAMENTOS[clave];
+    return `
+      <div class="barra-superior">
+        <button type="button" class="enlace" data-accion="inicio">← Temperamentos</button>
+        <span class="chip">${emblema(clave, 'emblema-mini')} ${esc(t.nombre)}</span>
+      </div>`;
+  }
+
   function pantallaInicio() {
     aplicarColor(null);
     const tarjetas = ORDEN.map((clave) => {
       const t = TEMPERAMENTOS[clave];
+      const codigos = CUESTIONARIOS[clave].perfiles.map((p) => p.id).join(' · ');
       return `
-        <button class="tarjeta-temp" style="--c:${t.color};--cp:${t.palido};--co:${t.oscuro}" data-temp="${clave}">
+        <button type="button" class="tarjeta-temp" style="--c:${t.color};--cp:${t.palido};--co:${t.oscuro}" data-temp="${clave}">
           ${emblema(clave)}
           <span class="tarjeta-nombre">${esc(t.nombre)}</span>
           <span class="tarjeta-lema">${esc(t.lema)}</span>
-          <span class="tarjeta-tipos">${t.tipos.join(' · ')}</span>
+          <span class="tarjeta-tipos">${codigos}</span>
         </button>`;
     }).join('');
 
@@ -103,153 +142,210 @@
         </div>
       </header>
       <section class="contenido">
-        <p class="intro">¿Cuál es tu temperamento? Elige el que descubriste en la clase y responde su cuestionario para encontrar cuál de los 16 perfiles te describe mejor.</p>
+        <p class="intro">¿Cuál es tu temperamento? Elige el que descubriste en la clase y responde sus 12 preguntas para conocer el perfil más afín a ti.</p>
         <div class="rejilla">${tarjetas}</div>
+        ${nota()}
       </section>`;
 
     app.querySelectorAll('[data-temp]').forEach((b) =>
-      b.addEventListener('click', () => iniciar(b.dataset.temp)),
-    );
-  }
-
-  function iniciar(clave) {
-    estado.temperamento = clave;
-    estado.indice = 0;
-    estado.respuestas = [];
-    estado.pantalla = 'cuestionario';
-    render();
-  }
-
-  function encabezado(t, clave) {
-    return `
-      <div class="barra-superior">
-        <button class="enlace" data-accion="inicio">← Temperamentos</button>
-        <span class="chip">${emblema(clave, 'emblema-mini')} ${esc(t.nombre)}</span>
-      </div>`;
-  }
-
-  function pantallaCuestionario() {
-    const clave = estado.temperamento;
-    const t = TEMPERAMENTOS[clave];
-    const preguntas = CUESTIONARIOS[clave] || [];
-    aplicarColor(clave);
-
-    if (preguntas.length === 0) {
-      app.innerHTML = `
-        <section class="contenido estrecho">
-          ${encabezado(t, clave)}
-          <div class="panel centrado">
-            ${emblema(clave, 'emblema-grande')}
-            <h2>Cuestionario ${esc(t.nombre)}</h2>
-            <p>Este cuestionario estará disponible pronto.</p>
-          </div>
-        </section>`;
-      return;
-    }
-
-    const i = estado.indice;
-    const p = preguntas[i];
-    const elegida = estado.respuestas[i];
-    const progreso = Math.round((i / preguntas.length) * 100);
-    const opciones = p.opciones.map((o, j) => `
-      <button class="opcion${elegida === j ? ' elegida' : ''}" data-opcion="${j}">
-        <span class="opcion-letra">${String.fromCharCode(65 + j)}</span>
-        <span>${esc(o.texto)}</span>
-      </button>`).join('');
-
-    app.innerHTML = `
-      <section class="contenido estrecho">
-        ${encabezado(t, clave)}
-        <div class="progreso" role="progressbar" aria-valuemin="0" aria-valuemax="${preguntas.length}" aria-valuenow="${i}">
-          <div class="progreso-relleno" style="width:${progreso}%"></div>
-        </div>
-        <p class="contador">Pregunta ${i + 1} de ${preguntas.length}</p>
-        <div class="panel">
-          <h2 class="pregunta">${esc(p.texto)}</h2>
-          <div class="opciones">${opciones}</div>
-        </div>
-        ${i > 0 ? '<button class="enlace" data-accion="atras">← Pregunta anterior</button>' : ''}
-      </section>`;
-
-    app.querySelectorAll('[data-opcion]').forEach((b) =>
       b.addEventListener('click', () => {
-        estado.respuestas[i] = Number(b.dataset.opcion);
-        if (i + 1 < preguntas.length) {
-          estado.indice++;
-        } else {
-          estado.pantalla = 'resultado';
-        }
+        estado.temperamento = b.dataset.temp;
+        estado.respuestas = {};
+        estado.pantalla = 'cuestionario';
         render();
       }),
     );
   }
 
-  function calcular() {
-    const preguntas = CUESTIONARIOS[estado.temperamento];
-    const conteo = {};
-    TEMPERAMENTOS[estado.temperamento].tipos.forEach((tipo) => (conteo[tipo] = 0));
-    estado.respuestas.forEach((r, i) => {
-      const tipo = preguntas[i].opciones[r].tipo;
-      (Array.isArray(tipo) ? tipo : [tipo]).forEach((x) => (conteo[x] = (conteo[x] || 0) + 1));
+  function pantallaCuestionario() {
+    const clave = estado.temperamento;
+    const t = TEMPERAMENTOS[clave];
+    const { perfiles, preguntas } = CUESTIONARIOS[clave];
+    aplicarColor(clave);
+
+    const listaPerfiles = perfiles.map((p) => `
+      <li><strong>${esc(p.nombre)} (${p.id})</strong>: ${esc(p.descripcion)}</li>`).join('');
+
+    const bloques = preguntas.map((q, i) => {
+      const opciones = q.opciones.map((o, j) => {
+        const id = `${q.id}-${j}`;
+        const marcada = estado.respuestas[q.id] === j ? ' checked' : '';
+        return `
+          <label class="opcion" for="${id}">
+            <input type="radio" id="${id}" name="${q.id}" value="${j}"${marcada} />
+            <span class="opcion-letra" aria-hidden="true">${String.fromCharCode(65 + j)}</span>
+            <span class="opcion-texto">${esc(o.texto)}</span>
+          </label>`;
+      }).join('');
+      const respondida = estado.respuestas[q.id] !== undefined ? ' respondida' : '';
+      return `
+        <fieldset class="pregunta${respondida}" id="bloque-${q.id}">
+          <legend><span class="pregunta-num">${i + 1}.</span> ${esc(q.texto)}</legend>
+          <div class="opciones">${opciones}</div>
+        </fieldset>`;
+    }).join('');
+
+    app.innerHTML = `
+      <section class="contenido estrecho">
+        ${encabezado(clave)}
+        <div class="panel presentacion">
+          ${emblema(clave, 'emblema-grande')}
+          <h1>Temperamento ${esc(t.nombre)}</h1>
+          <p>Responde las ${preguntas.length} preguntas eligiendo la opción que más se parezca a ti. Puedes cambiar tus respuestas antes de enviarlas.</p>
+          <h2>Los cuatro perfiles</h2>
+          <ul class="lista-perfiles">${listaPerfiles}</ul>
+        </div>
+        <div class="avance" aria-hidden="true">
+          <span class="avance-texto"></span>
+          <div class="progreso"><div class="progreso-relleno"></div></div>
+        </div>
+        <form class="formulario" novalidate>
+          ${bloques}
+          <p class="aviso" role="status" aria-live="polite"></p>
+          <button type="submit" class="boton grande">Descubrir mi perfil</button>
+        </form>
+        ${nota()}
+      </section>`;
+
+    const total = preguntas.length;
+    const textoAvance = app.querySelector('.avance-texto');
+    const relleno = app.querySelector('.progreso-relleno');
+    const aviso = app.querySelector('.aviso');
+
+    function actualizarAvance() {
+      const n = preguntas.filter((q) => estado.respuestas[q.id] !== undefined).length;
+      textoAvance.textContent = `${n} de ${total}`;
+      relleno.style.width = `${(n / total) * 100}%`;
+    }
+    actualizarAvance();
+
+    const form = app.querySelector('form');
+    form.addEventListener('change', (e) => {
+      const input = e.target;
+      estado.respuestas[input.name] = Number(input.value);
+      const bloque = document.getElementById(`bloque-${input.name}`);
+      bloque.classList.add('respondida');
+      bloque.classList.remove('falta');
+      actualizarAvance();
+      if (aviso.textContent) {
+        const r = calcular(clave);
+        aviso.textContent = r.incompleto ? textoFaltan(r.faltan.length) : '';
+      }
     });
-    const lista = Object.entries(conteo).sort((a, b) => b[1] - a[1]);
-    const maximo = lista[0][1];
-    return {
-      total: preguntas.length,
-      lista,
-      ganadores: lista.filter(([, n]) => n === maximo).map(([tipo]) => tipo),
-    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const r = calcular(clave);
+      if (r.incompleto) {
+        aviso.textContent = textoFaltan(r.faltan.length);
+        r.faltan.forEach((q) => document.getElementById(`bloque-${q.id}`).classList.add('falta'));
+        const primera = document.getElementById(`bloque-${r.faltan[0].id}`);
+        primera.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        primera.querySelector('input').focus({ preventScroll: true });
+        return;
+      }
+      estado.pantalla = 'resultado';
+      render();
+    });
   }
 
-  function tarjetaPerfil(tipo, n, total) {
-    const p = PERFILES[tipo];
-    return `
-      <div class="perfil">
-        <p class="perfil-letras">${tipo}</p>
-        <p class="perfil-nombre">${esc(p.nombre)}</p>
-        <p class="perfil-desc">${esc(p.descripcion)}</p>
-        <p class="perfil-cuenta"><strong>${n} de ${total}</strong> de tus respuestas apuntaron a este perfil</p>
-      </div>`;
+  function textoFaltan(n) {
+    return n === 1
+      ? 'Falta 1 pregunta por responder. Respóndela para ver tu resultado.'
+      : `Faltan ${n} preguntas por responder. Respóndelas para ver tu resultado.`;
+  }
+
+  function textoParaCopiar(clave, r) {
+    const t = TEMPERAMENTOS[clave];
+    const principal = r.ganadores.length > 1 ? 'Una combinación de perfiles' : 'Perfil principal';
+    return [
+      `Mi resultado — Temperamento ${t.nombre}`,
+      '',
+      `${principal}:`,
+      ...r.ganadores.map((p) => `${p.nombre} (${p.id}) — ${p.descripcion}`),
+      '',
+      'Puntajes:',
+      ...r.orden.map((p) => `${p.nombre} (${p.id}): ${r.puntos[p.id]} / ${r.total}`),
+      '',
+      NOTA_LIMITES,
+    ].join('\n');
   }
 
   function pantallaResultado() {
     const clave = estado.temperamento;
-    const t = TEMPERAMENTOS[clave];
     aplicarColor(clave);
-    const { total, lista, ganadores } = calcular();
-    const maximo = lista[0][1];
+    const r = calcular(clave);
+    const empate = r.ganadores.length > 1;
 
-    const barras = lista.map(([tipo, n]) => `
-      <li class="barra${ganadores.includes(tipo) ? ' principal' : ''}">
-        <span class="barra-tipo">${tipo}</span>
-        <span class="barra-pista"><span class="barra-relleno" style="width:${maximo ? (n / total) * 100 : 0}%"></span></span>
-        <span class="barra-num">${n}</span>
-      </li>`).join('');
+    const principales = r.ganadores.map((p) => `
+      <div class="perfil">
+        <p class="perfil-letras">${p.id}</p>
+        <p class="perfil-nombre">${esc(p.nombre)}</p>
+        <p class="perfil-desc">${esc(p.descripcion)}</p>
+        <p class="perfil-cuenta">${r.puntos[p.id]} / ${r.total}</p>
+      </div>`).join('');
 
-    const otros = lista.filter(([tipo, n]) => n > 0 && !ganadores.includes(tipo));
-    const frases = otros.map(([tipo, n]) => `${n} ${n === 1 ? 'respuesta apuntó' : 'respuestas apuntaron'} a <strong>${tipo}</strong> (${esc(PERFILES[tipo].nombre)})`);
-    const textoOtros = frases.length
-      ? `También ${frases.length > 1 ? `${frases.slice(0, -1).join(', ')} y ${frases[frases.length - 1]}` : frases[0]}.`
-      : '';
+    const barras = r.orden.map((p) => {
+      const n = r.puntos[p.id];
+      const destacado = r.ganadores.includes(p) ? ' principal' : '';
+      return `
+        <li class="barra${destacado}">
+          <div class="barra-etiqueta">
+            <span><strong>${esc(p.nombre)}</strong> <span class="barra-codigo">${p.id}</span></span>
+            <span class="barra-num">${n} / ${r.total}</span>
+          </div>
+          <span class="barra-pista"><span class="barra-relleno" style="width:${(n / r.total) * 100}%"></span></span>
+        </li>`;
+    }).join('');
 
     app.innerHTML = `
       <section class="contenido estrecho">
-        ${encabezado(t, clave)}
-        <div class="panel centrado resultado">
+        ${encabezado(clave)}
+        <div class="panel centrado resultado" aria-live="polite">
           ${emblema(clave, 'emblema-grande')}
-          <p class="sobretitulo">${ganadores.length > 1 ? 'Tu perfil está entre' : 'Tu perfil es'}</p>
-          <div class="perfiles">${ganadores.map((tipo) => tarjetaPerfil(tipo, maximo, total)).join('')}</div>
+          <h1 tabindex="-1">Tu resultado</h1>
+          <p class="sobretitulo">${empate ? 'Una combinación de perfiles' : 'Tu perfil principal'}</p>
+          <div class="perfiles${empate ? ' empate' : ''}">${principales}</div>
         </div>
         <div class="panel">
-          <h3>Desglose de tus respuestas</h3>
+          <h2>Tus puntajes</h2>
           <ul class="barras">${barras}</ul>
-          ${textoOtros ? `<p class="otros">${textoOtros}</p>` : ''}
         </div>
+        ${nota()}
         <div class="acciones">
-          <button class="boton" data-accion="repetir">Repetir cuestionario</button>
-          <button class="boton secundario" data-accion="inicio">Elegir otro temperamento</button>
+          <button type="button" class="boton" data-accion="copiar">Copiar mis resultados</button>
+          <button type="button" class="boton secundario" data-accion="inicio">Volver a empezar</button>
         </div>
+        <p class="aviso centrado-texto" role="status" aria-live="polite"></p>
       </section>`;
+
+    app.querySelector('h1').focus({ preventScroll: true });
+    app.querySelector('[data-accion=copiar]').addEventListener('click', () =>
+      copiar(textoParaCopiar(clave, r)),
+    );
+  }
+
+  function copiar(texto) {
+    const aviso = app.querySelector('.aviso');
+    const listo = () => (aviso.textContent = 'Resultados copiados. Ya puedes pegarlos donde quieras.');
+    const respaldo = () => {
+      const area = document.createElement('textarea');
+      area.value = texto;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.opacity = '0';
+      document.body.appendChild(area);
+      area.select();
+      const ok = document.execCommand('copy');
+      area.remove();
+      if (ok) listo();
+      else aviso.textContent = 'No se pudieron copiar los resultados. Inténtalo de nuevo.';
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(texto).then(listo, respaldo);
+    } else {
+      respaldo();
+    }
   }
 
   function render() {
@@ -257,12 +353,10 @@
     else if (estado.pantalla === 'cuestionario') pantallaCuestionario();
     else pantallaResultado();
 
-    app.querySelectorAll('[data-accion]').forEach((b) =>
+    app.querySelectorAll('[data-accion=inicio]').forEach((b) =>
       b.addEventListener('click', () => {
-        const accion = b.dataset.accion;
-        if (accion === 'inicio') estado.pantalla = 'inicio';
-        else if (accion === 'atras') estado.indice--;
-        else if (accion === 'repetir') return iniciar(estado.temperamento);
+        estado.pantalla = 'inicio';
+        estado.respuestas = {};
         render();
       }),
     );
